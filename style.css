@@ -1,0 +1,418 @@
+:root {
+    --bg-dark-blue: #020617;     
+    --bg-section-alt: #0f172a;   
+    --neon-blue: #0ea5e9;        
+    --text-white: #f8fafc;       
+    --text-slate: #cbd5e1;       
+    --card-slate-bg: #1e293b;    
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-dark-blue);
+    color: var(--text-white);
+    line-height: 1.7;
+}
+
+html[dir="rtl"] body {
+    font-family: 'Cairo', sans-serif;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(2, 6, 23, 0.95);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 8%;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2.2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: var(--text-white);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a.active, .nav-links a:hover {
+    color: var(--neon-blue);
+}
+
+#lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 18px;
+    background-color: transparent;
+    color: var(--neon-blue);
+    border: 1px solid var(--neon-blue);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+#lang-toggle:hover {
+    background-color: var(--neon-blue);
+    color: var(--bg-dark-blue);
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding: 0 8%;
+    box-sizing: border-box;
+    gap: 4rem;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 650px;
+}
+
+.hero h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.my-name {
+    font-size: 3.8rem;
+    font-weight: 700;
+    margin: 5px 0;
+    line-height: 1.2;
+    white-space: nowrap; 
+}
+
+.typing-text {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+}
+
+.highlight {
+    color: var(--neon-blue);
+}
+
+.hero-desc {
+    color: var(--text-slate);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    text-align: justify;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.icon-circle {
+    width: 42px;
+    height: 42px;
+    border: 2px solid var(--neon-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--neon-blue);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.icon-circle:hover {
+    background-color: var(--neon-blue);
+    color: var(--bg-dark-blue);
+    box-shadow: 0 0 15px var(--neon-blue);
+    transform: translateY(-3px);
+}
+
+.btn-cv {
+    display: inline-block;
+    padding: 12px 35px;
+    background-color: var(--neon-blue);
+    color: var(--bg-dark-blue);
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 25px;
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-cv:hover {
+    background-color: transparent;
+    color: var(--neon-blue);
+    border: 2px solid var(--neon-blue);
+    box-shadow: 0 0 20px var(--neon-blue);
+    transform: translateY(-2px);
+}
+
+.hero-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glowing-circle {
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon-blue), #1e3a8a);
+    padding: 5px;
+    box-shadow: 0 0 35px rgba(14, 165, 233, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--bg-section-alt);
+}
+
+.section {
+    padding: 6rem 8%;
+    text-align: center;
+}
+
+.bg-alt {
+    background-color: var(--bg-section-alt);
+}
+
+.section-title {
+    font-size: 2.3rem;
+    margin-bottom: 3rem;
+    display: inline-block;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+    background-color: var(--neon-blue);
+}
+
+.about-content p {
+    color: var(--text-slate);
+    font-size: 1.15rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.skill-category {
+    background-color: var(--card-slate-bg);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: left;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+html[dir="rtl"] .skill-category {
+    text-align: right;
+}
+
+.skill-category h3 {
+    color: var(--neon-blue);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.8rem;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.15);
+}
+
+.skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skill-list li {
+    color: var(--text-slate);
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
+
+html[dir="rtl"] .skill-list li {
+    padding-left: 0;
+    padding-right: 1.5rem;
+}
+
+.skill-list li::before {
+    content: '▹';
+    color: var(--neon-blue);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+html[dir="rtl"] .skill-list li::before {
+    left: auto;
+    right: 0;
+}
+
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.project-card {
+    background-color: var(--card-slate-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    width: 300px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+html[dir="rtl"] .project-card {
+    text-align: right;
+}
+
+.project-card h3 {
+    margin-top: 0;
+    color: var(--neon-blue);
+}
+
+.project-card p {
+    color: var(--text-slate);
+    flex-grow: 1;
+}
+
+.project-link {
+    color: var(--text-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-bottom: 1px solid var(--neon-blue);
+    align-self: flex-start;
+    transition: color 0.3s ease;
+}
+
+html[dir="rtl"] .project-link {
+    align-self: flex-end;
+}
+
+.project-link:hover {
+    color: var(--neon-blue);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.2);
+}
+
+.contact-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.contact-links a {
+    color: var(--bg-dark-blue);
+    text-decoration: none;
+    background-color: var(--neon-blue);
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    transition: all 0.3s ease;
+}
+
+.contact-links a:hover {
+    box-shadow: 0 0 15px var(--neon-blue);
+    transform: translateY(-2px);
+    background-color: #f8fafc;
+    color: var(--neon-blue);
+}
+
+html[dir="rtl"] .navbar, html[dir="rtl"] .hero {
+    flex-direction: row-reverse;
+}
+
+@media (max-width: 768px) {
+    .my-name {
+        font-size: 2.2rem; 
+    }
+}
+
+/* تنسيق قسم الفوتر (تذييل الصفحة) */
+.footer {
+    text-align: center; /* توسيط النص في منتصف الشاشة */
+    padding: 1.5rem; /* إضافة مساحة داخلية لترتيب الشكل */
+    background-color: var(--bg-dark-blue); /* استخدام لون الخلفية الداكن */
+    color: var(--text-slate); /* استخدام اللون الرمادي المائل للزرقة للنص */
+    font-size: 0.9rem; /* تصغير حجم الخط قليلاً ليتناسب مع الفوتر */
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* خط علوي شفاف قليلاً للفصل بين الفوتر وقسم التواصل */
+}
