@@ -1,3 +1,4 @@
+/* لوحة الألوان المعتمدة على تدرجات الأزرق الاحترافي */
 :root {
     --bg-dark-blue: #020617;     
     --bg-section-alt: #0f172a;   
@@ -24,6 +25,7 @@ html[dir="rtl"] body {
     font-family: 'Cairo', sans-serif;
 }
 
+/* تصميم شريط التنقل العلوي */
 .navbar {
     position: fixed;
     top: 0;
@@ -91,6 +93,7 @@ html[dir="rtl"] body {
     box-shadow: 0 0 10px var(--neon-blue);
 }
 
+/* القسم الافتتاحي */
 .hero {
     display: flex;
     align-items: center;
@@ -397,25 +400,16 @@ html[dir="rtl"] .project-link {
     color: var(--neon-blue);
 }
 
-html[dir="rtl"] .navbar, html[dir="rtl"] .hero {
-    flex-direction: row-reverse;
-}
-
-@media (max-width: 768px) {
-    .my-name {
-        font-size: 2.2rem; 
-    }
-}
-
 /* تنسيق قسم الفوتر (تذييل الصفحة) */
 .footer {
-    text-align: center; /* توسيط النص في منتصف الشاشة */
-    padding: 1.5rem; /* إضافة مساحة داخلية لترتيب الشكل */
-    background-color: var(--bg-dark-blue); /* استخدام لون الخلفية الداكن */
-    color: var(--text-slate); /* استخدام اللون الرمادي المائل للزرقة للنص */
-    font-size: 0.9rem; /* تصغير حجم الخط قليلاً ليتناسب مع الفوتر */
-    border-top: 1px solid rgba(255, 255, 255, 0.05); /* خط علوي شفاف قليلاً للفصل بين الفوتر وقسم التواصل */
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--bg-dark-blue);
+    color: var(--text-slate);
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
+
 /* =========================================
    أكواد التجاوب مع الشاشات (Responsive Design)
    ========================================= */
@@ -423,30 +417,28 @@ html[dir="rtl"] .navbar, html[dir="rtl"] .hero {
 /* 1. التجاوب مع شاشات الآيباد (الأجهزة اللوحية - عرض 992 بكسل فأقل) */
 @media (max-width: 992px) {
     .hero {
-        flex-direction: column; /* تغيير ترتيب القسم الافتتاحي ليصبح عمودياً (النص فوق والصورة تحت) */
-        text-align: center; /* توسيط جميع النصوص */
-        padding-top: 140px; /* مسافة إضافية من الأعلى لتجنب تغطية شريط التنقل للنص */
+        flex-direction: column; 
+        text-align: center; 
+        padding-top: 140px; 
         gap: 3rem;
     }
 
-    /* معالجة الاتجاه في اللغة العربية */
     html[dir="rtl"] .hero {
         flex-direction: column; 
     }
 
     .hero-content {
-        max-width: 100%; /* السماح للنص بأخذ عرض الشاشة بالكامل */
+        max-width: 100%; 
         display: flex;
         flex-direction: column;
-        align-items: center; /* توسيط الأزرار والأيقونات */
+        align-items: center; 
     }
 
     .hero-desc {
-        text-align: center; /* توسيط الوصف بدلاً من ضبطه لليسار/اليمين */
+        text-align: center; 
         padding: 0 1rem;
     }
 
-    /* تقليل المسافات في شريط التنقل */
     .nav-links {
         gap: 1rem;
     }
@@ -454,9 +446,8 @@ html[dir="rtl"] .navbar, html[dir="rtl"] .hero {
 
 /* 2. التجاوب مع شاشات الجوال (عرض 768 بكسل فأقل) */
 @media (max-width: 768px) {
-    /* ترتيب شريط التنقل (Navbar) ليناسب الجوال */
     .navbar {
-        flex-direction: column; /* جعل الشعار والروابط تحت بعضها */
+        flex-direction: column; 
         padding: 1rem;
         gap: 1rem;
     }
@@ -467,15 +458,19 @@ html[dir="rtl"] .navbar, html[dir="rtl"] .hero {
     }
 
     .nav-links {
-        flex-wrap: wrap; /* السماح للروابط بالنزول لسطر جديد إذا لزم الأمر */
+        flex-wrap: wrap; 
         justify-content: center;
         gap: 0.8rem;
     }
 
-    /* تصغير حجم الخطوط لتناسب الشاشات الصغيرة */
+    /* === [ التعديل هنا لإصلاح المشكلة في الصورة ] === */
+    /* قمنا بزيادة المسافة من الأعلى لكي يظهر النص بالكامل تحت شريط التنقل */
+    .hero {
+        padding-top: 250px; 
+    }
+
     .my-name {
         font-size: 2.2rem; 
-        /* السماح للاسم بالنزول لسطر جديد في الجوالات الصغيرة جداً لتجنب خروج النص عن الشاشة */
         white-space: normal; 
     }
 
@@ -487,13 +482,11 @@ html[dir="rtl"] .navbar, html[dir="rtl"] .hero {
         font-size: 0.95rem;
     }
 
-    /* تصغير حجم الدائرة والصورة الشخصية */
     .glowing-circle {
         width: 260px;
         height: 260px;
     }
 
-    /* تقليل المسافات الجانبية للأقسام لتوفير مساحة */
     .section {
         padding: 4rem 1.5rem;
     }
@@ -502,7 +495,6 @@ html[dir="rtl"] .navbar, html[dir="rtl"] .hero {
         font-size: 1.8rem;
     }
 
-    /* تعديل شبكة المهارات لتكون عمودية بالكامل */
     .skills-grid {
         grid-template-columns: 1fr;
     }
