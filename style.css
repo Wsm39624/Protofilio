@@ -416,3 +416,94 @@ html[dir="rtl"] .navbar, html[dir="rtl"] .hero {
     font-size: 0.9rem; /* تصغير حجم الخط قليلاً ليتناسب مع الفوتر */
     border-top: 1px solid rgba(255, 255, 255, 0.05); /* خط علوي شفاف قليلاً للفصل بين الفوتر وقسم التواصل */
 }
+/* =========================================
+   أكواد التجاوب مع الشاشات (Responsive Design)
+   ========================================= */
+
+/* 1. التجاوب مع شاشات الآيباد (الأجهزة اللوحية - عرض 992 بكسل فأقل) */
+@media (max-width: 992px) {
+    .hero {
+        flex-direction: column; /* تغيير ترتيب القسم الافتتاحي ليصبح عمودياً (النص فوق والصورة تحت) */
+        text-align: center; /* توسيط جميع النصوص */
+        padding-top: 140px; /* مسافة إضافية من الأعلى لتجنب تغطية شريط التنقل للنص */
+        gap: 3rem;
+    }
+
+    /* معالجة الاتجاه في اللغة العربية */
+    html[dir="rtl"] .hero {
+        flex-direction: column; 
+    }
+
+    .hero-content {
+        max-width: 100%; /* السماح للنص بأخذ عرض الشاشة بالكامل */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* توسيط الأزرار والأيقونات */
+    }
+
+    .hero-desc {
+        text-align: center; /* توسيط الوصف بدلاً من ضبطه لليسار/اليمين */
+        padding: 0 1rem;
+    }
+
+    /* تقليل المسافات في شريط التنقل */
+    .nav-links {
+        gap: 1rem;
+    }
+}
+
+/* 2. التجاوب مع شاشات الجوال (عرض 768 بكسل فأقل) */
+@media (max-width: 768px) {
+    /* ترتيب شريط التنقل (Navbar) ليناسب الجوال */
+    .navbar {
+        flex-direction: column; /* جعل الشعار والروابط تحت بعضها */
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap; /* السماح للروابط بالنزول لسطر جديد إذا لزم الأمر */
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    /* تصغير حجم الخطوط لتناسب الشاشات الصغيرة */
+    .my-name {
+        font-size: 2.2rem; 
+        /* السماح للاسم بالنزول لسطر جديد في الجوالات الصغيرة جداً لتجنب خروج النص عن الشاشة */
+        white-space: normal; 
+    }
+
+    .typing-text {
+        font-size: 1.3rem;
+    }
+
+    .hero-desc {
+        font-size: 0.95rem;
+    }
+
+    /* تصغير حجم الدائرة والصورة الشخصية */
+    .glowing-circle {
+        width: 260px;
+        height: 260px;
+    }
+
+    /* تقليل المسافات الجانبية للأقسام لتوفير مساحة */
+    .section {
+        padding: 4rem 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    /* تعديل شبكة المهارات لتكون عمودية بالكامل */
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
