@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="title">Wesam Al-Tabbaa | Software & IT Solutions Specialist</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">Portfolio</div>
-        <div class="nav-right">
+        <div class="logo">Wesam<span class="logo-dot">.</span></div>
+
+        <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav-right" id="nav-right">
             <ul class="nav-links">
                 <li><a href="#home" class="active" data-i18n="navHome">Home</a></li>
                 <li><a href="#about" data-i18n="navAbout">About</a></li>
@@ -24,25 +29,41 @@
                 <li><a href="#skills" data-i18n="navSkills">Skills</a></li>
                 <li><a href="#projects" data-i18n="navProjects">Projects</a></li>
                 <li><a href="#awards" data-i18n="navAwards">Awards</a></li>
+                <li><a href="#certificates" data-i18n="navCertificates">Certificates</a></li>
                 <li><a href="#contact" data-i18n="navContact">Contact</a></li>
             </ul>
             <button id="lang-toggle" onclick="toggleLanguage()">
-                <i class="fa-solid fa-globe"></i> 
+                <i class="fa-solid fa-globe"></i>
                 <span id="lang-text">العربية</span>
             </button>
         </div>
     </nav>
 
     <header id="home" class="hero">
-        <div class="hero-content"> 
+        <div class="hero-content">
             <h3 data-i18n="greeting">Hello,</h3>
             <h1 class="my-name" data-i18n="myName">Wesam Mohammed Al-Tabbaa</h1>
             <h2 class="typing-text"><span data-i18n="rolePrefix">And I'm a</span> <span class="highlight" data-i18n="role">Software & IT Solutions Specialist</span></h2>
-            
+
             <p class="hero-desc" data-i18n="heroText">
                 Computer Science graduate with hands-on experience across cloud computing, AI/ML engineering, full-stack development, and product UX. GCC Hackathon winner (1st place). Adept at turning technical challenges into real, deployable solutions — from intelligent career platforms to smart kiosk systems — with a strong focus on impact and user experience.
             </p>
-            
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num">1<sup>st</sup></span>
+                    <span class="stat-label" data-i18n="statHackathon">GCC Hackathon Place</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">6</span>
+                    <span class="stat-label" data-i18n="statCerts">Certificates & Trainings</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">4+</span>
+                    <span class="stat-label" data-i18n="statProjects">Shipped Projects</span>
+                </div>
+            </div>
+
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/eng-wesam-al-tabba-" target="_blank" class="icon-circle" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                 <a href="https://github.com/Wsm39624" target="_blank" class="icon-circle" title="GitHub"><i class="fa-brands fa-github"></i></a>
@@ -73,14 +94,18 @@
     <!-- Professional Experience -->
     <section id="experience" class="section bg-alt">
         <h2 data-i18n="expTitle" class="section-title">Professional Experience</h2>
-        <div class="projects-container">
-            <article class="project-card">
-                <h3>Technologies CO. (EBTCO)</h3>
-                <p><strong>Software Development Intern</strong> | <em>06/2026 – 08/2026</em></p>
-                <p data-i18n="exp1Desc">
-                    Led visitor UX design for the Ain Smart Kiosk reception system (walk-in, pre-registered, VIP flows, RTL bilingual interface, and Zebra printer integration). Developed dynamic Help Desk Scorecard Dashboards and trained on Microsoft Azure (AZ-104) administration and LLM workflows.
-                </p>
-            </article>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Emerging Business Technologies Co. (EBTco)</h3>
+                    <p class="timeline-role"><strong data-i18n="exp1Role">Software Development Intern — IT & Cybersecurity Dept.</strong> | <em>06/2026 – 08/2026</em></p>
+                    <p data-i18n="exp1Desc">
+                        Led visitor UX design for the Ain Smart Kiosk reception system (walk-in, pre-registered, VIP flows, RTL bilingual interface, and Zebra printer integration). Developed dynamic Help Desk Scorecard Dashboards and trained on Microsoft Azure (AZ-104) administration and LLM workflows.
+                    </p>
+                    <a href="https://github.com/Wsm39624/AIN-Kiosk-2" target="_blank" class="project-link" data-i18n="viewRepo">View Repository</a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -131,29 +156,80 @@
     <section id="projects" class="section bg-alt">
         <h2 data-i18n="projectsTitle" class="section-title">Featured Projects</h2>
         <div class="projects-container">
+
             <article class="project-card">
+                <span class="project-tag" data-i18n="tagAI">AI Platform</span>
                 <h3>Darbak.AI</h3>
                 <p data-i18n="proj1Desc">Intelligent Career Guidance & Job Readiness platform connecting students with market needs using Python, Flask, and Google Gemini API, evaluated against CC2020 standards.</p>
-                <a href="#" class="project-link" data-i18n="viewProject">AI Platform</a>
+                <span class="project-lang"><i class="fa-brands fa-python"></i> Python · Flask</span>
+                <div class="project-links">
+                    <span class="project-link project-link-disabled" data-i18n="repoSoon">Repository coming soon</span>
+                </div>
             </article>
 
             <article class="project-card">
-                <h3>Diabetes Patient Data Analysis</h3>
-                <p data-i18n="projDataDesc">Clinical data analysis and visualization utilizing Python, Pandas, and Matplotlib to identify diagnostic patterns and patient insights.</p>
-                <a href="#" class="project-link" data-i18n="viewProject">Data Science</a>
+                <span class="project-tag" data-i18n="tagData">Data Science</span>
+                <h3 data-i18n="projDataTitle">Literacy Rate Data Analysis</h3>
+                <p data-i18n="projDataDesc">Exploratory data analysis of literacy rate trends across states, gender, and age groups using Python, Pandas, SQL (pandasql), and Seaborn.</p>
+                <span class="project-lang"><i class="fa-brands fa-python"></i> Python (Jupyter Notebook)</span>
+                <div class="project-links">
+                    <a href="https://github.com/Wsm39624/literacy-rate-analysis" target="_blank" class="project-link" data-i18n="viewRepo">View Repository</a>
+                </div>
             </article>
 
             <article class="project-card">
-                <h3>Dynamic Help Desk Dashboard</h3>
-                <p data-i18n="projDashDesc">Interactive scorecard dashboard with real-time data visualization components designed for technical assessment.</p>
-                <a href="#" class="project-link" data-i18n="viewProject">Dashboard Demo</a>
+                <span class="project-tag" data-i18n="tagDashboard">Dashboard</span>
+                <h3 data-i18n="projDashTitle">Dynamic Help Desk Scorecard Dashboard</h3>
+                <p data-i18n="projDashDesc">Interactive scorecard dashboard with real-time data visualization components, built during the EBTco internship for technical performance assessment.</p>
+                <span class="project-lang"><i class="fa-brands fa-html5"></i> HTML · CSS · JavaScript</span>
+                <div class="project-links">
+                    <a href="https://wsm39624.github.io/Dynamic-Help-Desk-Scorecard-Dashboard/" target="_blank" class="project-link" data-i18n="viewProject">View Project</a>
+                    <a href="https://github.com/Wsm39624/Dynamic-Help-Desk-Scorecard-Dashboard" target="_blank" class="project-link project-link-secondary" data-i18n="viewRepo">View Repository</a>
+                </div>
             </article>
 
             <article class="project-card">
+                <span class="project-tag" data-i18n="tagAI">AI Platform</span>
+                <h3 data-i18n="projInvTitle">InventoryAI — Supply Chain Strategy</h3>
+                <p data-i18n="projInvDesc">An AI-assisted analytics tool that reviews stagnant inventory and suggests data-driven supply chain and marketing strategies.</p>
+                <span class="project-lang"><i class="fa-brands fa-html5"></i> HTML · CSS · JavaScript</span>
+                <div class="project-links">
+                    <a href="https://wsm39624.github.io/InventoryAI-AI-Supply-Chain-Strategy/" target="_blank" class="project-link" data-i18n="viewProject">View Project</a>
+                    <a href="https://github.com/Wsm39624/InventoryAI-AI-Supply-Chain-Strategy" target="_blank" class="project-link project-link-secondary" data-i18n="viewRepo">View Repository</a>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <span class="project-tag" data-i18n="tagKiosk">UX / Kiosk</span>
+                <h3 data-i18n="projKioskTitle">Ain Smart Kiosk</h3>
+                <p data-i18n="projKioskDesc">Bilingual RTL reception kiosk covering walk-in, pre-registered, and VIP visitor flows, with Zebra printer integration.</p>
+                <span class="project-lang"><i class="fa-solid fa-code"></i> C# (.NET / XAML)</span>
+                <div class="project-links">
+                    <a href="https://github.com/Wsm39624/AIN-Kiosk-2" target="_blank" class="project-link" data-i18n="viewRepo">View Repository</a>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <span class="project-tag" data-i18n="tagWeb">Web App</span>
                 <h3 data-i18n="proj3Title">World Clock</h3>
                 <p data-i18n="proj3Desc">An application that displays real-time clocks for multiple time zones.</p>
-                <a href="https://wsm39624.github.io/Clock-Container/" target="_blank" class="project-link" data-i18n="viewProject">View Project</a>
+                <span class="project-lang"><i class="fa-brands fa-html5"></i> HTML · CSS · JavaScript</span>
+                <div class="project-links">
+                    <a href="https://wsm39624.github.io/Clock-Container/" target="_blank" class="project-link" data-i18n="viewProject">View Project</a>
+                </div>
             </article>
+
+            <article class="project-card">
+                <span class="project-tag" data-i18n="tagWeb">Web App</span>
+                <h3 data-i18n="proj4Title">Weather App</h3>
+                <p data-i18n="proj4Desc">A program that fetches and displays live weather data.</p>
+                <span class="project-lang"><i class="fa-brands fa-html5"></i> HTML · CSS · JavaScript</span>
+                <div class="project-links">
+                    <a href="https://wsm39624.github.io/Weather-App-Updated/" target="_blank" class="project-link" data-i18n="viewProject">View Project</a>
+                    <a href="https://github.com/Wsm39624/Weather-App-Updated" target="_blank" class="project-link project-link-secondary" data-i18n="viewRepo">View Repository</a>
+                </div>
+            </article>
+
         </div>
     </section>
 
@@ -161,10 +237,68 @@
     <section id="awards" class="section">
         <h2 data-i18n="awardsTitle" class="section-title">Awards & Honors</h2>
         <div class="about-content">
-            <article class="project-card" style="text-align: center;">
-                <h3 style="color: var(--primary-color, #4A90E2);">🏆 1st Place Winner — Kuwait AI Hackathon</h3>
+            <article class="award-card">
+                <div class="award-icon">🏆</div>
+                <h3 data-i18n="awardTitle">1st Place Winner — Kuwait AI Hackathon</h3>
                 <p data-i18n="awardDesc">Achieved 1st place across all participating teams from the Gulf Cooperation Council (GCC) countries (10/2025).</p>
             </article>
+        </div>
+    </section>
+
+    <!-- Certificates -->
+    <section id="certificates" class="section bg-alt">
+        <h2 data-i18n="certsTitle" class="section-title">Certificates & Training</h2>
+        <p class="certs-subtitle" data-i18n="certsSubtitle">A record of continuous learning across AI, cloud, and applied data programs.</p>
+        <div class="certs-grid">
+
+            <button class="cert-card" data-img="certs/cert6-1.jpg">
+                <img src="certs/cert6-1.jpg" alt="Generative AI Workshop Certificate" loading="lazy">
+                <div class="cert-info">
+                    <h3 data-i18n="cert1Title">Generative AI Workshop</h3>
+                    <p data-i18n="cert1Issuer">GDSC & AI Club — Feb 2024</p>
+                </div>
+            </button>
+
+            <button class="cert-card" data-img="certs/cert3-1.jpg">
+                <img src="certs/cert3-1.jpg" alt="AOU Computer Club Certificate" loading="lazy">
+                <div class="cert-info">
+                    <h3 data-i18n="cert2Title">Artificial Intelligence Fundamentals</h3>
+                    <p data-i18n="cert2Issuer">AOU Computer Club — Nov 2025</p>
+                </div>
+            </button>
+
+            <button class="cert-card" data-img="certs/cert1-1.jpg">
+                <img src="certs/cert1-1.jpg" alt="AI Horizons Summit Certificate" loading="lazy">
+                <div class="cert-info">
+                    <h3 data-i18n="cert3Title">International Summit on AI Horizons</h3>
+                    <p data-i18n="cert3Issuer">Arab Open University, Kuwait — Nov 2025</p>
+                </div>
+            </button>
+
+            <button class="cert-card" data-img="certs/cert5-1.jpg">
+                <img src="certs/cert5-1.jpg" alt="Huawei Program Certificate" loading="lazy">
+                <div class="cert-info">
+                    <h3 data-i18n="cert4Title">Huawei Introductory Program & Developer Certifications</h3>
+                    <p data-i18n="cert4Issuer">Arab Open University — May 2026</p>
+                </div>
+            </button>
+
+            <button class="cert-card" data-img="certs/cert2-1.jpg">
+                <img src="certs/cert2-1.jpg" alt="180 Seconds of Impact Certificate" loading="lazy">
+                <div class="cert-info">
+                    <h3 data-i18n="cert5Title">"180 Seconds of Impact" Competition</h3>
+                    <p data-i18n="cert5Issuer">AOU Annual Scientific Research Forum — May 2026</p>
+                </div>
+            </button>
+
+            <button class="cert-card" data-img="certs/cert4-1.jpg">
+                <img src="certs/cert4-1.jpg" alt="EBTco Training Certificate" loading="lazy">
+                <div class="cert-info">
+                    <h3 data-i18n="cert6Title">COOP Training — IT & Cybersecurity Dept.</h3>
+                    <p data-i18n="cert6Issuer">Emerging Business Technologies Co. — Jun–Aug 2026</p>
+                </div>
+            </button>
+
         </div>
     </section>
 
@@ -182,11 +316,17 @@
 
     <footer class="footer">
         <p>
-            &copy; 2026 
-            <span data-i18n="myNameFooter">Wesam Mohammed Al-Tabbaa</span>. 
+            &copy; 2026
+            <span data-i18n="myNameFooter">Wesam Mohammed Al-Tabbaa</span>.
             <span data-i18n="copyright">All rights reserved.</span>
         </p>
     </footer>
+
+    <!-- Certificate Lightbox -->
+    <div id="cert-lightbox" class="cert-lightbox">
+        <button class="cert-lightbox-close" aria-label="Close">&times;</button>
+        <img id="cert-lightbox-img" src="" alt="Certificate preview">
+    </div>
 
     <script src="script.js"></script>
 </body>
