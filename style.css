@@ -553,7 +553,7 @@ html[dir="rtl"] .timeline-dot {
 }
 
 /* ==========================================================
-   Multi-Row Infinite Skills Marquee
+   Multi-Row Infinite Skills Marquee (Fix Layout)
    ========================================================== */
 .skills-ticker-wrapper {
     display: flex;
@@ -602,16 +602,16 @@ html[dir="rtl"] .timeline-dot {
 }
 
 .skills-ticker-wrapper .skill-pill {
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 30px;
     font-size: 0.85rem;
-    color: var(--text-slate);
-    white-space: nowrap;
+    color: #94a3b8;
+    white-space: nowrap !important; /* يمنع نزول النص لسطر جديد */
     transition: all 0.25s ease;
     cursor: default;
     user-select: none;
@@ -619,31 +619,26 @@ html[dir="rtl"] .timeline-dot {
 
 .skills-ticker-wrapper .skill-pill i {
     font-size: 0.9rem;
-    color: var(--neon-blue);
+    color: #0ea5e9;
 }
 
 .skills-ticker-wrapper .skill-pill:hover {
-    background: rgba(14, 165, 233, 0.15);
-    border-color: var(--neon-blue);
-    color: var(--text-white);
+    background: rgba(14, 165, 233, 0.2);
+    border-color: #0ea5e9;
+    color: #f8fafc;
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(14, 165, 233, 0.25);
+    box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
 }
 
 .skills-ticker-wrapper .highlight-pill {
-    border-color: rgba(240, 169, 64, 0.3);
-    background: rgba(240, 169, 64, 0.06);
+    border-color: rgba(240, 169, 64, 0.4);
+    background: rgba(240, 169, 64, 0.1);
 }
 
 .skills-ticker-wrapper .highlight-pill i {
-    color: var(--gold);
+    color: #f0a940;
 }
 
-.skills-ticker-wrapper .highlight-pill:hover {
-    background: rgba(240, 169, 64, 0.18);
-    border-color: var(--gold);
-    box-shadow: 0 5px 15px rgba(240, 169, 64, 0.3);
-}
 
 /* ==========================================================
    Projects
