@@ -1,5 +1,5 @@
 /* ==========================================================
-   Design tokens
+   Design tokens & Reset
    ========================================================== */
 :root {
     --bg-dark-blue: #020617;
@@ -146,18 +146,6 @@ a {
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.nav-toggle.open span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-
-.nav-toggle.open span:nth-child(2) {
-    opacity: 0;
-}
-
-.nav-toggle.open span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
-
 /* ==========================================================
    Hero
    ========================================================== */
@@ -166,7 +154,7 @@ a {
     align-items: center;
     justify-content: space-between;
     min-height: 100vh;
-    padding: 0 8%;
+    padding: 120px 8% 60px 8%;
     box-sizing: border-box;
     gap: 4rem;
     max-width: var(--max-width);
@@ -284,7 +272,7 @@ a {
 }
 
 /* ==========================================================
-   Hero ID Badge Container & Styling (Fixed Positioning)
+   Hero ID Badge Container & Styling (Fixed Image & Card Structure)
    ========================================================== */
 .hero-image-container {
     flex: 1;
@@ -376,6 +364,7 @@ a {
     border: 2px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     margin-bottom: 14px;
+    background-color: #1e293b;
 }
 
 .badge-pic {
@@ -466,7 +455,6 @@ a {
     background-color: var(--neon-blue);
 }
 
-/* About Section Card */
 .about-card {
     background: var(--card-slate-bg);
     border: 1px solid var(--card-border);
@@ -482,12 +470,6 @@ a {
     font-size: 1.05rem;
     line-height: 1.85;
     margin: 0;
-    text-align: justify;
-    text-justify: inter-word;
-}
-
-html[dir="rtl"] .about-card p {
-    text-align: justify;
 }
 
 /* ==========================================================
@@ -553,7 +535,7 @@ html[dir="rtl"] .timeline-dot {
 }
 
 /* ==========================================================
-   Multi-Row Infinite Skills Marquee (Fix Layout)
+   Multi-Row Infinite Skills Marquee (Forced Horizontal Layout)
    ========================================================== */
 .skills-ticker-wrapper {
     display: flex;
@@ -568,13 +550,15 @@ html[dir="rtl"] .timeline-dot {
 }
 
 .ticker-track {
-    display: flex;
+    display: flex !important;
+    flex-direction: row !important;
     width: max-content;
     gap: 1rem;
 }
 
 .ticker-content {
-    display: flex;
+    display: flex !important;
+    flex-direction: row !important;
     gap: 0.8rem;
     flex-shrink: 0;
 }
@@ -606,12 +590,12 @@ html[dir="rtl"] .timeline-dot {
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(30, 41, 59, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 30px;
     font-size: 0.85rem;
-    color: #94a3b8;
-    white-space: nowrap !important; /* يمنع نزول النص لسطر جديد */
+    color: var(--text-slate) !important;
+    white-space: nowrap !important;
     transition: all 0.25s ease;
     cursor: default;
     user-select: none;
@@ -619,29 +603,28 @@ html[dir="rtl"] .timeline-dot {
 
 .skills-ticker-wrapper .skill-pill i {
     font-size: 0.9rem;
-    color: #0ea5e9;
+    color: var(--neon-blue);
 }
 
 .skills-ticker-wrapper .skill-pill:hover {
-    background: rgba(14, 165, 233, 0.2);
-    border-color: #0ea5e9;
-    color: #f8fafc;
+    background: rgba(14, 165, 233, 0.2) !important;
+    border-color: var(--neon-blue) !important;
+    color: var(--text-white) !important;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
 }
 
 .skills-ticker-wrapper .highlight-pill {
-    border-color: rgba(240, 169, 64, 0.4);
-    background: rgba(240, 169, 64, 0.1);
+    border-color: rgba(240, 169, 64, 0.4) !important;
+    background: rgba(240, 169, 64, 0.1) !important;
 }
 
 .skills-ticker-wrapper .highlight-pill i {
-    color: #f0a940;
+    color: var(--gold);
 }
 
-
 /* ==========================================================
-   Projects
+   Projects, Awards & Certificates
    ========================================================== */
 .projects-container {
     display: flex;
@@ -755,9 +738,6 @@ html[dir="rtl"] .project-link {
     box-shadow: 0 0 15px rgba(14, 165, 233, 0.2);
 }
 
-/* ==========================================================
-   Awards
-   ========================================================== */
 .award-card {
     background-color: var(--card-slate-bg);
     border: 1px solid var(--gold-dim);
@@ -784,9 +764,6 @@ html[dir="rtl"] .project-link {
     margin: 0;
 }
 
-/* ==========================================================
-   Certificates
-   ========================================================== */
 .certs-subtitle {
     color: var(--text-slate);
     max-width: 560px;
@@ -884,7 +861,7 @@ html[dir="rtl"] .cert-card {
 }
 
 /* ==========================================================
-   Contact
+   Contact & Footer
    ========================================================== */
 .contact-links {
     list-style: none;
@@ -915,9 +892,6 @@ html[dir="rtl"] .cert-card {
     color: var(--neon-blue);
 }
 
-/* ==========================================================
-   Footer
-   ========================================================== */
 .footer {
     text-align: center;
     padding: 1.5rem;
@@ -930,18 +904,12 @@ html[dir="rtl"] .cert-card {
 /* ==========================================================
    Responsive
    ========================================================== */
-
-/* Tablets */
 @media (max-width: 992px) {
     .hero {
         flex-direction: column;
         text-align: center;
         padding-top: 140px;
         gap: 3rem;
-    }
-
-    html[dir="rtl"] .hero {
-        flex-direction: column;
     }
 
     .hero-content {
@@ -953,21 +921,10 @@ html[dir="rtl"] .cert-card {
 
     .hero-desc {
         text-align: center;
-        max-width: 100%;
-        padding: 0 1rem;
     }
 
     .hero-stats {
         justify-content: center;
-        text-align: center;
-    }
-
-    .stat {
-        align-items: center;
-    }
-
-    .stat-label {
-        max-width: none;
     }
 
     .lanyard-strap {
@@ -975,7 +932,6 @@ html[dir="rtl"] .cert-card {
     }
 }
 
-/* Mobile nav */
 @media (max-width: 900px) {
     .nav-toggle {
         display: flex;
@@ -996,7 +952,6 @@ html[dir="rtl"] .cert-card {
         transform: translateX(100%);
         transition: transform 0.35s ease;
         border-left: 1px solid var(--card-border);
-        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.35);
     }
 
     html[dir="rtl"] .nav-right {
@@ -1005,7 +960,6 @@ html[dir="rtl"] .cert-card {
         transform: translateX(-100%);
         border-left: none;
         border-right: 1px solid var(--card-border);
-        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.35);
     }
 
     .nav-right.open {
@@ -1016,13 +970,8 @@ html[dir="rtl"] .cert-card {
         flex-direction: column;
         gap: 1.4rem;
     }
-
-    .nav-links a {
-        font-size: 1.05rem;
-    }
 }
 
-/* Phones */
 @media (max-width: 768px) {
     .navbar {
         padding: 1rem 6%;
@@ -1030,12 +979,6 @@ html[dir="rtl"] .cert-card {
 
     .hero {
         padding-top: 180px;
-        padding-left: 6%;
-        padding-right: 6%;
-    }
-
-    .my-name {
-        white-space: normal;
     }
 
     .id-badge {
@@ -1055,45 +998,12 @@ html[dir="rtl"] .cert-card {
         grid-template-columns: 1fr;
     }
 
-    .cert-card img {
-        height: 200px;
-    }
-
-    .timeline {
-        padding-left: 1.4rem;
-    }
-
-    html[dir="rtl"] .timeline {
-        padding-right: 1.4rem;
-    }
-
-    .timeline-dot {
-        left: -1.84rem;
-    }
-
-    html[dir="rtl"] .timeline-dot {
-        right: -1.84rem;
-    }
-
     .project-card {
         width: 100%;
         max-width: 380px;
     }
-
-    .about-card {
-        padding: 1.8rem;
-    }
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        transition: none !important;
-        scroll-behavior: auto !important;
-    }
-}
-
-/* Buttons in Professional Experience */
 .cert-trigger-btn {
     background: none;
     border: none;
@@ -1108,8 +1018,4 @@ html[dir="rtl"] .cert-card {
     flex-wrap: wrap;
     gap: 1.2rem;
     margin-top: 1rem;
-}
-
-html[dir="rtl"] .timeline-content .project-links {
-    justify-content: flex-start;
 }
