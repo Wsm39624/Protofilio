@@ -11,17 +11,19 @@ const translations = {
         navContact: "Contact",
         greeting: "Hello,",
         myName: "Wesam Mohammed Al-Tabbaa",
+        badgeRole: "AI Developer | Software Engineer",
         rolePrefix: "And I'm a",
-        role: "Software & IT Solutions Specialist",
+        role: "AI Developer | Software Engineer",
         heroText: "Computer Science graduate with hands-on experience across cloud computing, AI/ML engineering, full-stack development, and product UX. GCC Hackathon winner (1st place). Adept at turning technical challenges into real, deployable solutions — from intelligent career platforms to smart kiosk systems — with a strong focus on impact and user experience.",
         statHackathon: "GCC Hackathon Place",
         statCerts: "Certificates & Trainings",
         statProjects: "Shipped Projects",
         cv: "Download CV",
         aboutTitle: "About Me",
-        aboutDesc: "Bachelor of Computer Science from Arab Open University (2022–2026). I bridge the gap between complex software engineering, cloud administration, and intuitive user interfaces to build robust digital solutions that solve tangible problems.",
+        aboutDesc: "A recent graduate from Arab Open University with a Bachelor of Computer Science, I completed a Software Development Internship at Emerging Business Technologies (EBTCO) in July 2026. During my time there, I contributed to cloud computing, full-stack prototyping, and product design, including leading the visitor UX design for a smart reception system and implementing bilingual interfaces and automated badge printing. My core competencies include user experience design, Microsoft Entra ID, dashboard development, and data visualization. I am motivated to apply my technical skills and academic foundation to develop innovative solutions, with a focus on creating intuitive and impactful digital experiences.",
         expTitle: "Professional Experience",
         exp1Role: "Software Development Intern — IT & Cybersecurity Dept.",
+        viewCert: "View Certificate",
         exp1Desc: "Led visitor UX design for the Ain Smart Kiosk reception system (walk-in, pre-registered, VIP flows, RTL bilingual interface, and Zebra printer integration). Developed dynamic Help Desk Scorecard Dashboards and trained on Microsoft Azure (AZ-104) administration and LLM workflows.",
         viewRepo: "View Repository",
         skillsTitle: "Technical Skills",
@@ -89,17 +91,19 @@ const translations = {
         navContact: "التواصل",
         greeting: "أهلاً،",
         myName: "وسام محمد الطباع",
+        badgeRole: "مطور ذكاء اصطناعي | مهندس برمجيات",
         rolePrefix: "وأنا",
-        role: "أخصائي حلول برمجية وتقنية معلومات",
+        role: "مطور ذكاء اصطناعي | مهندس برمجيات",
         heroText: "خريج علوم حاسب ذو خبرة عملية في الحوسبة السحابية، هندسة الذكاء الاصطناعي وتعلم الآلة، التطوير المتكامل (Full-Stack)، وتصميم تجربة المستخدم. فائز بالمركز الأول في هاكاثون على مستوى دول الخليج. أجيد تحويل التحديات التقنية إلى حلول فعلية قابلة للنشر — من منصات التوجيه المهني الذكية إلى أنظمة الأكشاك الذكية — مع تركيز قوي على الأثر وتجربة المستخدم.",
         statHackathon: "مركز أول بهاكاثون خليجي",
         statCerts: "شهادة ودورة تدريبية",
         statProjects: "مشروع منجز",
         cv: "تحميل السيرة الذاتية",
         aboutTitle: "من أنا",
-        aboutDesc: "بكالوريوس علوم حاسب من الجامعة العربية المفتوحة (2022–2026). أجمع بين هندسة البرمجيات المعقدة، إدارة الأنظمة السحابية، وواجهات المستخدم البديهية لبناء حلول رقمية متينة تحل مشاكل حقيقية.",
+        aboutDesc: "خريج حديث من الجامعة العربية المفتوحة بحاصل بكالوريوس علوم الحاسب، أكملت تدريباً تعاونياً في تطوير البرمجيات لدى شركة الأعمال المتجددة لتقنية المعلومات (EBTCO) في يوليو 2026. شاركت في مشاريع الحوسبة السحابية، النمذجة الأولية للتطبيقات المتكاملة، وتصميم تجربة المستخدم الذكية بما في ذلك قيادة تصميم تجربة المستخدم لنظام الاستقبال الذكي مع الواجهات ثنائية اللغة والطباعة التلقائية للأوسمة. تتلخص مهاراتي الأساسية في تصميم تجربة المستخدم، إدارة Microsoft Entra ID، وتطوير لوحات التحكم وتصور البيانات.",
         expTitle: "الخبرة المهنية",
         exp1Role: "متدرب تطوير برمجيات — قسم تقنية المعلومات والأمن السيبراني",
+        viewCert: "عرض الشهادة",
         exp1Desc: "قدت تصميم تجربة الزوار لنظام استقبال Ain Smart Kiosk (مسارات الحضور المباشر، المسجلين مسبقاً، وكبار الزوار، بواجهة عربية-إنجليزية RTL، وربط مع طابعة Zebra). طورت لوحات Help Desk Scorecard التفاعلية، وتدربت على إدارة Microsoft Azure (AZ-104) وأنظمة عمل النماذج اللغوية الكبيرة.",
         viewRepo: "عرض الريبو",
         skillsTitle: "المهارات التقنية",
@@ -240,6 +244,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // فتح الشهادة عند الضغط على زر View Certificate في قسم الخبرة المهنية
+    const certTriggerBtns = document.querySelectorAll('.cert-trigger-btn');
+    certTriggerBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const imgSrc = btn.getAttribute('data-img');
+            if (lightboxImg && lightbox) {
+                lightboxImg.src = imgSrc;
+                lightbox.classList.add('open');
+            }
+        });
+    });
+
     function closeLightbox() {
         lightbox.classList.remove('open');
         lightboxImg.src = '';
@@ -262,4 +278,27 @@ document.addEventListener('DOMContentLoaded', () => {
             closeLightbox();
         }
     });
+
+    // Mouse Swaying Effect for ID Badge
+    const badge = document.getElementById('idBadge');
+
+    if (badge) {
+        badge.addEventListener('mousemove', (e) => {
+            const rect = badge.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const topY = rect.top;
+
+            const deltaX = e.clientX - centerX;
+            const deltaY = e.clientY - topY;
+
+            const rotateZ = (deltaX / rect.width) * 10;
+            const rotateX = -(deltaY / rect.height) * 5;
+
+            badge.style.transform = `perspective(1000px) rotateZ(${rotateZ}deg) rotateX(${rotateX}deg)`;
+        });
+
+        badge.addEventListener('mouseleave', () => {
+            badge.style.transform = 'perspective(1000px) rotateZ(0deg) rotateX(0deg)';
+        });
+    }
 });

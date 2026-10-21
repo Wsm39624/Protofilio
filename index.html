@@ -43,7 +43,7 @@
         <div class="hero-content">
             <h3 data-i18n="greeting">Hello,</h3>
             <h1 class="my-name" data-i18n="myName">Wesam Mohammed Al-Tabbaa</h1>
-            <h2 class="typing-text"><span data-i18n="rolePrefix">And I'm a</span> <span class="highlight" data-i18n="role">Software & IT Solutions Specialist</span></h2>
+            <h2 class="typing-text"><span data-i18n="rolePrefix">And I'm a</span> <span class="highlight" data-i18n="role">AI Developer | Software Engineer</span></h2>
 
             <p class="hero-desc" data-i18n="heroText">
                 Computer Science graduate with hands-on experience across cloud computing, AI/ML engineering, full-stack development, and product UX. GCC Hackathon winner (1st place). Adept at turning technical challenges into real, deployable solutions — from intelligent career platforms to smart kiosk systems — with a strong focus on impact and user experience.
@@ -75,18 +75,39 @@
             </div>
         </div>
 
+        <!-- ID Badge Section -->
         <div class="hero-image-container">
-            <div class="glowing-circle">
-                <img src="profile.png" alt="Wesam Mohammed" class="profile-pic">
+            <div class="hero-badge-wrapper">
+                <div class="lanyard-strap"></div>
+                <div class="id-badge" id="idBadge">
+                    <div class="badge-clip"></div>
+                    <div class="badge-inner">
+                        <div class="badge-header">
+                            <span class="badge-dot"></span>
+                            <span class="badge-status">ONLINE</span>
+                        </div>
+                        <div class="badge-photo-container">
+                            <img src="profile.jpeg" alt="Wesam Al-Tabba" class="badge-pic">
+                        </div>
+                        <div class="badge-info">
+                            <h3 class="badge-name" data-i18n="myName">Wesam Al-Tabba</h3>
+                            <p class="badge-role" data-i18n="badgeRole">AI Developer | Software Engineer</p>
+                        </div>
+                        <div class="badge-footer">
+                            <div class="badge-barcode"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
+    <!-- About Section -->
     <section id="about" class="section">
         <h2 data-i18n="aboutTitle" class="section-title">About Me</h2>
-        <div class="about-content">
+        <div class="about-card">
             <p data-i18n="aboutDesc">
-                Bachelor of Computer Science from Arab Open University (2022–2026). I bridge the gap between complex software engineering, cloud administration, and intuitive user interfaces to build robust digital solutions that solve tangible problems.
+               A recent graduate from Arab Open University with a Bachelor of Computer Science, I completed a Software Development Internship at Emerging Business Technologies (EBTCO) in July 2026. During my time there, I contributed to cloud computing, full-stack prototyping, and product design, including leading the visitor UX design for a smart reception system and implementing bilingual interfaces and automated badge printing. My core competencies include user experience design, Microsoft Entra ID, dashboard development, and data visualization. I am motivated to apply my technical skills and academic foundation to develop innovative solutions, with a focus on creating intuitive and impactful digital experiences.
             </p>
         </div>
     </section>
@@ -103,54 +124,115 @@
                     <p data-i18n="exp1Desc">
                         Led visitor UX design for the Ain Smart Kiosk reception system (walk-in, pre-registered, VIP flows, RTL bilingual interface, and Zebra printer integration). Developed dynamic Help Desk Scorecard Dashboards and trained on Microsoft Azure (AZ-104) administration and LLM workflows.
                     </p>
-                    <a href="https://github.com/Wsm39624/AIN-Kiosk-2" target="_blank" class="project-link" data-i18n="viewRepo">View Repository</a>
+                    <div class="project-links">
+                        <a href="https://github.com/Wsm39624/AIN-Kiosk-2" target="_blank" class="project-link" data-i18n="viewRepo">View Repository</a>
+                        <button class="project-link cert-trigger-btn" data-img="certs/cert4-1.jpg" data-i18n="viewCert">View Certificate</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
+  <!-- Creative Multi-Row Ticker Skills Section -->
     <section id="skills" class="section">
         <h2 data-i18n="skillsTitle" class="section-title">Technical Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3 data-i18n="skillCat1">Languages & Frameworks</h3>
-                <ul class="skill-list">
-                    <li>Python, Java, JavaScript, C#</li>
-                    <li>HTML/CSS, SQL</li>
-                    <li>React, Node.js, MERN Stack</li>
-                    <li>Flask</li>
-                </ul>
+        
+        <div class="skills-ticker-wrapper">
+            
+            <!-- Row 1: Languages, Frameworks & Fundamentals (Moving Left) -->
+            <div class="ticker-track track-left">
+                <div class="ticker-content">
+                    <span class="skill-pill"><i class="fa-brands fa-python"></i> Python</span>
+                    <span class="skill-pill"><i class="fa-solid fa-code-branch"></i> C#</span>
+                    <span class="skill-pill"><i class="fa-brands fa-java"></i> Embedded Java</span>
+                    <span class="skill-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
+                    <span class="skill-pill"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+                    <span class="skill-pill"><i class="fa-solid fa-database"></i> SQL</span>
+                    <span class="skill-pill"><i class="fa-brands fa-node-js"></i> Embedded JavaScript (EJS)</span>
+                    <span class="skill-pill"><i class="fa-solid fa-cubes"></i> OOP</span>
+                    <span class="skill-pill"><i class="fa-solid fa-terminal"></i> Programming Language Fundamentals</span>
+                    <span class="skill-pill"><i class="fa-solid fa-mobile-screen-button"></i> Application Development</span>
+                    <span class="skill-pill"><i class="fa-solid fa-globe"></i> Web Development</span>
+                </div>
+                <div class="ticker-content" aria-hidden="true">
+                    <span class="skill-pill"><i class="fa-brands fa-python"></i> Python</span>
+                    <span class="skill-pill"><i class="fa-solid fa-code-branch"></i> C#</span>
+                    <span class="skill-pill"><i class="fa-brands fa-java"></i> Embedded Java</span>
+                    <span class="skill-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
+                    <span class="skill-pill"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+                    <span class="skill-pill"><i class="fa-solid fa-database"></i> SQL</span>
+                    <span class="skill-pill"><i class="fa-brands fa-node-js"></i> Embedded JavaScript (EJS)</span>
+                    <span class="skill-pill"><i class="fa-solid fa-cubes"></i> OOP</span>
+                    <span class="skill-pill"><i class="fa-solid fa-terminal"></i> Programming Language Fundamentals</span>
+                    <span class="skill-pill"><i class="fa-solid fa-mobile-screen-button"></i> Application Development</span>
+                    <span class="skill-pill"><i class="fa-solid fa-globe"></i> Web Development</span>
+                </div>
             </div>
-            <div class="skill-category">
-                <h3 data-i18n="skillCat2">Cloud & AI / ML</h3>
-                <ul class="skill-list">
-                    <li>Microsoft Azure (AZ-104)</li>
-                    <li>Google Gemini API & LLM Integration</li>
-                    <li>Prompt Engineering & Generative AI</li>
-                    <li>Pandas, Matplotlib & Computer Vision</li>
-                </ul>
+
+            <!-- Row 2: Cloud, AI / ML & Data Engineering (Moving Right) -->
+            <div class="ticker-track track-right">
+                <div class="ticker-content">
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-key"></i> Microsoft Entra ID</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-cloud"></i> Cloud Administration</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-robot"></i> Generative AI & Prompt Engineering</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-microchip"></i> Artificial Intelligence (AI)</span>
+                    <span class="skill-pill"><i class="fa-solid fa-server"></i> Data Engineering</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-line"></i> Data Analysis</span>
+                    <span class="skill-pill"><i class="fa-solid fa-box"></i> Pandas</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-column"></i> Matplotlib</span>
+                </div>
+                <div class="ticker-content" aria-hidden="true">
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-key"></i> Microsoft Entra ID</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-cloud"></i> Cloud Administration</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-robot"></i> Generative AI & Prompt Engineering</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-microchip"></i> Artificial Intelligence (AI)</span>
+                    <span class="skill-pill"><i class="fa-solid fa-server"></i> Data Engineering</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-line"></i> Data Analysis</span>
+                    <span class="skill-pill"><i class="fa-solid fa-box"></i> Pandas</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-column"></i> Matplotlib</span>
+                </div>
             </div>
-            <div class="skill-category">
-                <h3 data-i18n="skillCat3">Tools & Product Design</h3>
-                <ul class="skill-list">
-                    <li>Visual Studio & VS Code</li>
-                    <li>Lovable & Antigravity</li>
-                    <li>Kiosk & Dashboard UX Design</li>
-                    <li>RTL/Bilingual Interface Architecture</li>
-                </ul>
+
+            <!-- Row 3: Tools, Version Control, Product Design & Soft Skills (Moving Left) -->
+            <div class="ticker-track track-left">
+                <div class="ticker-content">
+                    <span class="skill-pill highlight-pill"><i class="fa-brands fa-git-alt"></i> Git</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-brands fa-github"></i> GitHub & Version Control</span>
+                    <span class="skill-pill"><i class="fa-solid fa-wrench"></i> Developer Tools</span>
+                    <span class="skill-pill"><i class="fa-solid fa-bug"></i> Debugging</span>
+                    <span class="skill-pill"><i class="fa-solid fa-pen-nib"></i> User Experience Design (UED)</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-pie"></i> Dashboard Development & Visualization</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-simple"></i> Web Analytics</span>
+                    <span class="skill-pill"><i class="fa-solid fa-file-invoice"></i> Reporting</span>
+                    <span class="skill-pill"><i class="fa-solid fa-diagram-project"></i> Project Management</span>
+                    <span class="skill-pill"><i class="fa-solid fa-lightbulb"></i> Problem Solving</span>
+                    <span class="skill-pill"><i class="fa-solid fa-users"></i> Teamwork & Team Building</span>
+                    <span class="skill-pill"><i class="fa-solid fa-clock"></i> Time Management</span>
+                    <span class="skill-pill"><i class="fa-solid fa-comments"></i> Clear Communications</span>
+                    <span class="skill-pill"><i class="fa-solid fa-display"></i> Presentation Skills</span>
+                    <span class="skill-pill"><i class="fa-solid fa-handshake-angle"></i> Customer-Focused Service</span>
+                </div>
+                <div class="ticker-content" aria-hidden="true">
+                    <span class="skill-pill highlight-pill"><i class="fa-brands fa-git-alt"></i> Git</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-brands fa-github"></i> GitHub & Version Control</span>
+                    <span class="skill-pill"><i class="fa-solid fa-wrench"></i> Developer Tools</span>
+                    <span class="skill-pill"><i class="fa-solid fa-bug"></i> Debugging</span>
+                    <span class="skill-pill"><i class="fa-solid fa-pen-nib"></i> User Experience Design (UED)</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-pie"></i> Dashboard Development & Visualization</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-simple"></i> Web Analytics</span>
+                    <span class="skill-pill"><i class="fa-solid fa-file-invoice"></i> Reporting</span>
+                    <span class="skill-pill"><i class="fa-solid fa-diagram-project"></i> Project Management</span>
+                    <span class="skill-pill"><i class="fa-solid fa-lightbulb"></i> Problem Solving</span>
+                    <span class="skill-pill"><i class="fa-solid fa-users"></i> Teamwork & Team Building</span>
+                    <span class="skill-pill"><i class="fa-solid fa-clock"></i> Time Management</span>
+                    <span class="skill-pill"><i class="fa-solid fa-comments"></i> Clear Communications</span>
+                    <span class="skill-pill"><i class="fa-solid fa-display"></i> Presentation Skills</span>
+                    <span class="skill-pill"><i class="fa-solid fa-handshake-angle"></i> Customer-Focused Service</span>
+                </div>
             </div>
-            <div class="skill-category">
-                <h3 data-i18n="skillCat4">Communication & Leadership</h3>
-                <ul class="skill-list">
-                    <li data-i18n="skillSoft1">Presentation Skills</li>
-                    <li data-i18n="skillSoft2">Problem Solving</li>
-                    <li data-i18n="skillSoft3">Time Management</li>
-                    <li data-i18n="skillSoft4">Teamwork & Leadership</li>
-                </ul>
-            </div>
+
         </div>
-    </section>
+    </section>  
 
     <!-- Featured Projects -->
     <section id="projects" class="section bg-alt">
