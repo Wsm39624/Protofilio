@@ -27,14 +27,7 @@ const translations = {
         exp1Desc: "Led visitor UX design for the Ain Smart Kiosk reception system (walk-in, pre-registered, VIP flows, RTL bilingual interface, and Zebra printer integration). Developed dynamic Help Desk Scorecard Dashboards and trained on Microsoft Azure (AZ-104) administration and LLM workflows.",
         viewRepo: "View Repository",
         skillsTitle: "Technical Skills",
-        skillCat1: "Languages & Frameworks",
-        skillCat2: "Cloud & AI / ML",
-        skillCat3: "Tools & Product Design",
-        skillCat4: "Communication & Leadership",
-        skillSoft1: "Presentation Skills",
-        skillSoft2: "Problem Solving",
-        skillSoft3: "Time Management",
-        skillSoft4: "Teamwork & Leadership",
+        clickFlipHint: "Click / Tap to view details",
         projectsTitle: "Featured Projects",
         viewProject: "View Project",
         tagAI: "AI Platform",
@@ -73,8 +66,18 @@ const translations = {
         cert5Issuer: "AOU Annual Scientific Research Forum — May 2026",
         cert6Title: "COOP Training — IT & Cybersecurity Dept.",
         cert6Issuer: "Emerging Business Technologies Co. — Jun–Aug 2026",
-        contactTitle: "Contact Me",
-        contactDesc: "I am always open to discussing new opportunities, technical projects, and collaborations.",
+        cert7Title: "MiyahThon 3 Digital Bootcamp",
+        cert7Issuer: "Saudi Water Innovation Center — Sep 2026",
+        contactTitle: "Get In Touch",
+        contactDesc: "Let’s build something extraordinary together. Have a project, job offer, or just want to say hi? Send me a message!",
+        formName: "Full Name",
+        formEmail: "Email Address",
+        formSubject: "Subject",
+        formMessage: "Your Message",
+        formSend: "Send Message",
+        connectDivider: "Or connect directly via",
+        formSuccess: "Thank you! Your message has been sent successfully.",
+        formError: "Oops! There was a problem sending your message. Please try again.",
         whatsapp: "WhatsApp",
         myNameFooter: "Wesam Mohammed Al-Tabbaa",
         copyright: "All rights reserved."
@@ -107,14 +110,7 @@ const translations = {
         exp1Desc: "قدت تصميم تجربة الزوار لنظام استقبال Ain Smart Kiosk (مسارات الحضور المباشر، المسجلين مسبقاً، وكبار الزوار، بواجهة عربية-إنجليزية RTL، وربط مع طابعة Zebra). طورت لوحات Help Desk Scorecard التفاعلية، وتدربت على إدارة Microsoft Azure (AZ-104) وأنظمة عمل النماذج اللغوية الكبيرة.",
         viewRepo: "عرض الريبو",
         skillsTitle: "المهارات التقنية",
-        skillCat1: "لغات وأطر البرمجة",
-        skillCat2: "الحوسبة السحابية والذكاء الاصطناعي",
-        skillCat3: "الأدوات وتصميم المنتج",
-        skillCat4: "التواصل والقيادة",
-        skillSoft1: "مهارات العرض والتقديم",
-        skillSoft2: "حل المشكلات",
-        skillSoft3: "إدارة الوقت",
-        skillSoft4: "العمل الجماعي والقيادة",
+        clickFlipHint: "انقر لرؤية التفاصيل",
         projectsTitle: "أبرز المشاريع",
         viewProject: "عرض المشروع",
         tagAI: "منصة ذكاء اصطناعي",
@@ -153,8 +149,18 @@ const translations = {
         cert5Issuer: "المنتدى السنوي للبحث العلمي بالجامعة العربية المفتوحة — مايو 2026",
         cert6Title: "التدريب التعاوني — قسم تقنية المعلومات والأمن السيبراني",
         cert6Issuer: "شركة الأعمال المتجددة لتقنية المعلومات — يونيو–أغسطس 2026",
+        cert7Title: "المعسكر الرقمي لمياهثون 3",
+        cert7Issuer: "مركز الابتكار السعودي لتقنيات المياه — سبتمبر 2026",
         contactTitle: "تواصل معي",
-        contactDesc: "أنا مستعد دائماً لمناقشة فرص جديدة، مشاريع تقنية، وتعاونات مختلفة.",
+        contactDesc: "لنصنع شيئاً استثنائياً معاً. هل لديك مشروع، فرصة عمل، أو ترغب في الاستفسار؟ أرسل لي رسالة!",
+        formName: "الاسم الكامل",
+        formEmail: "البريد الإلكتروني",
+        formSubject: "الموضوع",
+        formMessage: "رسالتك",
+        formSend: "إرسال الرسالة",
+        connectDivider: "أو تواصل معي مباشرة عبر",
+        formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.",
+        formError: "عذراً! حدثت مشكلة أثناء إرسال الرسالة، يرجى المحاولة مرة أخرى.",
         whatsapp: "واتساب",
         myNameFooter: "وسام محمد الطباع",
         copyright: "جميع الحقوق محفوظة."
@@ -230,6 +236,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Toggle Flip on Click / Tap for Experience Card (PC & Mobile)
+    const expCard = document.getElementById('expCard');
+    if (expCard) {
+        expCard.addEventListener('click', () => {
+            expCard.classList.toggle('flipped');
+        });
+    }
+
+    // Toggle Flip on Click / Tap for Project Cards (PC & Mobile)
+    const projCards = document.querySelectorAll('.clickable-proj-card');
+    projCards.forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('flipped');
+        });
+    });
+
     // Certificate lightbox
     const lightbox = document.getElementById('cert-lightbox');
     const lightboxImg = document.getElementById('cert-lightbox-img');
@@ -247,7 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // فتح الشهادة عند الضغط على زر View Certificate في قسم الخبرة المهنية
     const certTriggerBtns = document.querySelectorAll('.cert-trigger-btn');
     certTriggerBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
             const imgSrc = btn.getAttribute('data-img');
             if (lightboxImg && lightbox) {
                 lightboxImg.src = imgSrc;
@@ -299,6 +322,131 @@ document.addEventListener('DOMContentLoaded', () => {
 
         badge.addEventListener('mouseleave', () => {
             badge.style.transform = 'perspective(1000px) rotateZ(0deg) rotateX(0deg)';
+        });
+    }
+
+    // Award Image Slider Logic
+    const slides = document.querySelectorAll('#awardSlider .slide');
+    const dots = document.querySelectorAll('#sliderDots .dot');
+    const btnNext = document.getElementById('sliderNext');
+    const btnPrev = document.getElementById('sliderPrev');
+    const sliderContainer = document.getElementById('awardSlider');
+
+    if (slides.length > 0) {
+        let currentSlide = 0;
+        let slideInterval = null;
+        const autoPlayDelay = 15000;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+
+        function prevSlide() {
+            let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prevIndex);
+        }
+
+        function startAutoPlay() {
+            stopAutoPlay();
+            slideInterval = setInterval(nextSlide, autoPlayDelay);
+        }
+
+        function stopAutoPlay() {
+            if (slideInterval) {
+                clearInterval(slideInterval);
+            }
+        }
+
+        if (btnNext) {
+            btnNext.addEventListener('click', () => {
+                nextSlide();
+                startAutoPlay();
+            });
+        }
+
+        if (btnPrev) {
+            btnPrev.addEventListener('click', () => {
+                prevSlide();
+                startAutoPlay();
+            });
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                const index = parseInt(e.target.getAttribute('data-slide'));
+                if (!isNaN(index)) {
+                    showSlide(index);
+                    startAutoPlay();
+                }
+            });
+        });
+
+        if (sliderContainer) {
+            sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+            sliderContainer.addEventListener('mouseleave', startAutoPlay);
+        }
+
+        showSlide(0);
+        startAutoPlay();
+    }
+
+    // Formspree AJAX Submission for seamless UX
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    const submitBtn = document.getElementById('form-submit-btn');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = new FormData(contactForm);
+            
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: contactForm.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    formStatus.className = 'form-status success';
+                    formStatus.innerText = translations[currentLang].formSuccess;
+                    contactForm.reset();
+                } else {
+                    const responseData = await response.json();
+                    formStatus.className = 'form-status error';
+                    if (Object.hasOwn(responseData, 'errors')) {
+                        formStatus.innerText = responseData["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        formStatus.innerText = translations[currentLang].formError;
+                    }
+                }
+            } catch (error) {
+                formStatus.className = 'form-status error';
+                formStatus.innerText = translations[currentLang].formError;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                setTimeout(() => {
+                    formStatus.innerText = '';
+                    formStatus.className = 'form-status';
+                }, 6000);
+            }
         });
     }
 });
