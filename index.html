@@ -14,6 +14,9 @@
 </head>
 <body>
 
+    <!-- 3D Interactive Grid Canvas Overlay -->
+    <canvas id="gridCanvas"></canvas>
+
     <nav class="navbar">
         <div class="logo">Wesam<span class="logo-dot">.</span></div>
 
@@ -55,11 +58,11 @@
                     <span class="stat-label" data-i18n="statHackathon">GCC Hackathon Place</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-num">6</span>
+                    <span class="stat-num">7</span>
                     <span class="stat-label" data-i18n="statCerts">Certificates & Trainings</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-num">4+</span>
+                    <span class="stat-num">6+</span>
                     <span class="stat-label" data-i18n="statProjects">Shipped Projects</span>
                 </div>
             </div>
@@ -75,7 +78,6 @@
             </div>
         </div>
 
-        <!-- ID Badge Section -->
         <div class="hero-image-container">
             <div class="hero-badge-wrapper">
                 <div class="lanyard-strap"></div>
@@ -119,11 +121,8 @@
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 
-                <!-- Clickable Flip Card Container -->
                 <div class="exp-flip-card clickable-flip-card" id="expCard">
                     <div class="exp-flip-inner">
-                        
-                        <!-- Front Face -->
                         <div class="exp-flip-front">
                             <img src="images/ebtco-building.jpg" alt="EBTco Corporate Building" loading="lazy">
                             <div class="exp-overlay">
@@ -132,7 +131,6 @@
                             </div>
                         </div>
 
-                        <!-- Back Face -->
                         <div class="exp-flip-back">
                             <h3>Emerging Business Technologies Co. (EBTco)</h3>
                             <p class="timeline-role"><strong data-i18n="exp1Role">Software Development Intern — IT & Cybersecurity Dept.</strong> | <em>06/2026 – 08/2026</em></p>
@@ -144,7 +142,6 @@
                                 <button class="project-link cert-trigger-btn" data-img="certs/cert4-1.jpg" data-i18n="viewCert" onclick="event.stopPropagation();">View Certificate</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -152,13 +149,11 @@
         </div>
     </section>
 
-    <!-- Creative Multi-Row Ticker Skills Section -->
+    <!-- Technical Skills -->
     <section id="skills" class="section">
         <h2 data-i18n="skillsTitle" class="section-title">Technical Skills</h2>
         
         <div class="skills-ticker-wrapper">
-            
-            <!-- Row 1: Languages, Frameworks & Fundamentals -->
             <div class="ticker-track track-left">
                 <div class="ticker-content">
                     <span class="skill-pill"><i class="fa-brands fa-python"></i> Python</span>
@@ -169,8 +164,8 @@
                     <span class="skill-pill"><i class="fa-solid fa-database"></i> SQL</span>
                     <span class="skill-pill"><i class="fa-brands fa-node-js"></i> Embedded JavaScript (EJS)</span>
                     <span class="skill-pill"><i class="fa-solid fa-cubes"></i> OOP</span>
-                    <span class="skill-pill"><i class="fa-solid fa-terminal"></i> Programming Language Fundamentals</span>
-                    <span class="skill-pill"><i class="fa-solid fa-mobile-screen-button"></i> Application Development</span>
+                    <span class="skill-pill"><i class="fa-solid fa-terminal"></i> Programming Fundamentals</span>
+                    <span class="skill-pill"><i class="fa-solid fa-mobile-screen-button"></i> App Development</span>
                     <span class="skill-pill"><i class="fa-solid fa-globe"></i> Web Development</span>
                 </div>
                 <div class="ticker-content" aria-hidden="true">
@@ -182,18 +177,17 @@
                     <span class="skill-pill"><i class="fa-solid fa-database"></i> SQL</span>
                     <span class="skill-pill"><i class="fa-brands fa-node-js"></i> Embedded JavaScript (EJS)</span>
                     <span class="skill-pill"><i class="fa-solid fa-cubes"></i> OOP</span>
-                    <span class="skill-pill"><i class="fa-solid fa-terminal"></i> Programming Language Fundamentals</span>
-                    <span class="skill-pill"><i class="fa-solid fa-mobile-screen-button"></i> Application Development</span>
+                    <span class="skill-pill"><i class="fa-solid fa-terminal"></i> Programming Fundamentals</span>
+                    <span class="skill-pill"><i class="fa-solid fa-mobile-screen-button"></i> App Development</span>
                     <span class="skill-pill"><i class="fa-solid fa-globe"></i> Web Development</span>
                 </div>
             </div>
 
-            <!-- Row 2: Cloud, AI / ML & Data Engineering -->
             <div class="ticker-track track-right">
                 <div class="ticker-content">
                     <span class="skill-pill highlight-pill"><i class="fa-solid fa-key"></i> Microsoft Entra ID</span>
                     <span class="skill-pill highlight-pill"><i class="fa-solid fa-cloud"></i> Cloud Administration</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-robot"></i> Generative AI & Prompt Engineering</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-robot"></i> Generative AI & Prompting</span>
                     <span class="skill-pill highlight-pill"><i class="fa-solid fa-microchip"></i> Artificial Intelligence (AI)</span>
                     <span class="skill-pill"><i class="fa-solid fa-server"></i> Data Engineering</span>
                     <span class="skill-pill"><i class="fa-solid fa-chart-line"></i> Data Analysis</span>
@@ -203,7 +197,7 @@
                 <div class="ticker-content" aria-hidden="true">
                     <span class="skill-pill highlight-pill"><i class="fa-solid fa-key"></i> Microsoft Entra ID</span>
                     <span class="skill-pill highlight-pill"><i class="fa-solid fa-cloud"></i> Cloud Administration</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-robot"></i> Generative AI & Prompt Engineering</span>
+                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-robot"></i> Generative AI & Prompting</span>
                     <span class="skill-pill highlight-pill"><i class="fa-solid fa-microchip"></i> Artificial Intelligence (AI)</span>
                     <span class="skill-pill"><i class="fa-solid fa-server"></i> Data Engineering</span>
                     <span class="skill-pill"><i class="fa-solid fa-chart-line"></i> Data Analysis</span>
@@ -212,54 +206,49 @@
                 </div>
             </div>
 
-            <!-- Row 3: Tools, Version Control, Product Design & Soft Skills -->
             <div class="ticker-track track-left">
                 <div class="ticker-content">
                     <span class="skill-pill highlight-pill"><i class="fa-brands fa-git-alt"></i> Git</span>
                     <span class="skill-pill highlight-pill"><i class="fa-brands fa-github"></i> GitHub & Version Control</span>
-                    <span class="skill-pill"><i class="fa-solid fa-wrench"></i> Developer Tools</span>
+                    <span class="skill-pill"><i class="fa-solid fa-wrench"></i> Dev Tools</span>
                     <span class="skill-pill"><i class="fa-solid fa-bug"></i> Debugging</span>
                     <span class="skill-pill"><i class="fa-solid fa-pen-nib"></i> User Experience Design (UED)</span>
-                    <span class="skill-pill"><i class="fa-solid fa-chart-pie"></i> Dashboard Development & Visualization</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-pie"></i> Dashboards & Visualization</span>
                     <span class="skill-pill"><i class="fa-solid fa-chart-simple"></i> Web Analytics</span>
-                    <span class="skill-pill"><i class="fa-solid fa-file-invoice"></i> Reporting</span>
                     <span class="skill-pill"><i class="fa-solid fa-diagram-project"></i> Project Management</span>
                     <span class="skill-pill"><i class="fa-solid fa-lightbulb"></i> Problem Solving</span>
-                    <span class="skill-pill"><i class="fa-solid fa-users"></i> Teamwork & Team Building</span>
-                    <span class="skill-pill"><i class="fa-solid fa-clock"></i> Time Management</span>
-                    <span class="skill-pill"><i class="fa-solid fa-comments"></i> Clear Communications</span>
-                    <span class="skill-pill"><i class="fa-solid fa-display"></i> Presentation Skills</span>
-                    <span class="skill-pill"><i class="fa-solid fa-handshake-angle"></i> Customer-Focused Service</span>
                 </div>
                 <div class="ticker-content" aria-hidden="true">
                     <span class="skill-pill highlight-pill"><i class="fa-brands fa-git-alt"></i> Git</span>
                     <span class="skill-pill highlight-pill"><i class="fa-brands fa-github"></i> GitHub & Version Control</span>
-                    <span class="skill-pill"><i class="fa-solid fa-wrench"></i> Developer Tools</span>
+                    <span class="skill-pill"><i class="fa-solid fa-wrench"></i> Dev Tools</span>
                     <span class="skill-pill"><i class="fa-solid fa-bug"></i> Debugging</span>
                     <span class="skill-pill"><i class="fa-solid fa-pen-nib"></i> User Experience Design (UED)</span>
-                    <span class="skill-pill"><i class="fa-solid fa-chart-pie"></i> Dashboard Development & Visualization</span>
+                    <span class="skill-pill"><i class="fa-solid fa-chart-pie"></i> Dashboards & Visualization</span>
                     <span class="skill-pill"><i class="fa-solid fa-chart-simple"></i> Web Analytics</span>
-                    <span class="skill-pill"><i class="fa-solid fa-file-invoice"></i> Reporting</span>
                     <span class="skill-pill"><i class="fa-solid fa-diagram-project"></i> Project Management</span>
                     <span class="skill-pill"><i class="fa-solid fa-lightbulb"></i> Problem Solving</span>
-                    <span class="skill-pill"><i class="fa-solid fa-users"></i> Teamwork & Team Building</span>
-                    <span class="skill-pill"><i class="fa-solid fa-clock"></i> Time Management</span>
-                    <span class="skill-pill"><i class="fa-solid fa-comments"></i> Clear Communications</span>
-                    <span class="skill-pill"><i class="fa-solid fa-display"></i> Presentation Skills</span>
-                    <span class="skill-pill"><i class="fa-solid fa-handshake-angle"></i> Customer-Focused Service</span>
                 </div>
             </div>
-
         </div>
     </section>  
 
-    <!-- Featured Projects -->
+    <!-- Featured Projects Section -->
     <section id="projects" class="section bg-alt">
         <h2 data-i18n="projectsTitle" class="section-title">Featured Projects</h2>
+        
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
+            <button class="filter-btn" data-filter="ai" data-i18n="filterAI">AI / ML</button>
+            <button class="filter-btn" data-filter="ux" data-i18n="filterUX">UI/UX & Kiosk</button>
+            <button class="filter-btn" data-filter="web" data-i18n="filterWeb">Web App</button>
+            <button class="filter-btn" data-filter="data" data-i18n="filterData">Data Science</button>
+        </div>
+
         <div class="projects-container">
 
             <!-- Project 1: Darbak.AI -->
-            <article class="project-flip-card clickable-proj-card">
+            <article class="project-flip-card clickable-proj-card" data-category="ai">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/darbak-preview.jpg" alt="Darbak.AI Project" loading="lazy">
@@ -280,30 +269,52 @@
                 </div>
             </article>
 
-            <!-- Project 2: Literacy Rate Data Analysis -->
-            <article class="project-flip-card clickable-proj-card">
+            <!-- Project 2: Hassen (حَصِين) -->
+            <article class="project-flip-card clickable-proj-card" data-category="ai">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <img src="images/literacy-preview.jpg" alt="Literacy Rate Data Analysis" loading="lazy">
+                        <img src="images/inventory-preview.jpg" alt="Hassen Project" loading="lazy">
                         <div class="card-overlay-title">
-                            <h3 data-i18n="projDataTitle">Literacy Rate Data Analysis</h3>
+                            <h3 data-i18n="projHassenTitle">Hassen (حَصِين)</h3>
                             <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagData">Data Science</span>
-                        <h3 data-i18n="projDataTitle">Literacy Rate Data Analysis</h3>
-                        <p data-i18n="projDataDesc">Exploratory data analysis of literacy rate trends across states, gender, and age groups using Python, Pandas, SQL (pandasql), and Seaborn.</p>
-                        <span class="project-lang"><i class="fa-brands fa-python"></i> Python (Jupyter Notebook)</span>
+                        <span class="project-tag" data-i18n="tagFinTech">AI & FinTech</span>
+                        <h3 data-i18n="projHassenTitle">Hassen (حَصِين)</h3>
+                        <p data-i18n="projHassenDesc">AI-powered FinTech compliance and data privacy platform aligned with SAMA, ZATCA, and SDAIA PDPL regulations. Amd Hackathon Finalist.</p>
+                        <span class="project-lang"><i class="fa-solid fa-shield-halved"></i> Python · Gemini API · UI/UX</span>
                         <div class="project-links">
-                            <a href="https://github.com/Wsm39624/literacy-rate-analysis" target="_blank" class="project-link" data-i18n="viewRepo" onclick="event.stopPropagation();">View Repository</a>
+                            <span class="project-link project-link-disabled" data-i18n="repoSoon" onclick="event.stopPropagation();">Repository coming soon</span>
                         </div>
                     </div>
                 </div>
             </article>
 
-            <!-- Project 3: Dynamic Help Desk Scorecard Dashboard -->
-            <article class="project-flip-card clickable-proj-card">
+            <!-- Project 3: Ain Smart Kiosk -->
+            <article class="project-flip-card clickable-proj-card" data-category="ux">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="images/kiosk-preview.jpg" alt="Ain Smart Kiosk" loading="lazy">
+                        <div class="card-overlay-title">
+                            <h3 data-i18n="projKioskTitle">Ain Smart Kiosk</h3>
+                            <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <span class="project-tag" data-i18n="tagKiosk">UX / Kiosk</span>
+                        <h3 data-i18n="projKioskTitle">Ain Smart Kiosk</h3>
+                        <p data-i18n="projKioskDesc">Bilingual RTL reception kiosk covering walk-in, pre-registered, and VIP visitor flows, with Zebra printer integration.</p>
+                        <span class="project-lang"><i class="fa-solid fa-code"></i> C# (.NET / XAML)</span>
+                        <div class="project-links">
+                            <a href="https://github.com/Wsm39624/AIN-Kiosk-2" target="_blank" class="project-link" data-i18n="viewRepo" onclick="event.stopPropagation();">View Repository</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 4: Dynamic Help Desk Scorecard Dashboard -->
+            <article class="project-flip-card clickable-proj-card" data-category="web ux">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/scorecard-preview.jpg" alt="Help Desk Scorecard Dashboard" loading="lazy">
@@ -325,8 +336,8 @@
                 </div>
             </article>
 
-            <!-- Project 4: InventoryAI -->
-            <article class="project-flip-card clickable-proj-card">
+            <!-- Project 5: InventoryAI -->
+            <article class="project-flip-card clickable-proj-card" data-category="ai web">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/inventory-preview.jpg" alt="InventoryAI" loading="lazy">
@@ -348,30 +359,30 @@
                 </div>
             </article>
 
-            <!-- Project 5: Ain Smart Kiosk -->
-            <article class="project-flip-card clickable-proj-card">
+            <!-- Project 6: Literacy Rate Data Analysis -->
+            <article class="project-flip-card clickable-proj-card" data-category="data">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <img src="images/kiosk-preview.jpg" alt="Ain Smart Kiosk" loading="lazy">
+                        <img src="images/literacy-preview.jpg" alt="Literacy Rate Data Analysis" loading="lazy">
                         <div class="card-overlay-title">
-                            <h3 data-i18n="projKioskTitle">Ain Smart Kiosk</h3>
+                            <h3 data-i18n="projDataTitle">Literacy Rate Data Analysis</h3>
                             <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagKiosk">UX / Kiosk</span>
-                        <h3 data-i18n="projKioskTitle">Ain Smart Kiosk</h3>
-                        <p data-i18n="projKioskDesc">Bilingual RTL reception kiosk covering walk-in, pre-registered, and VIP visitor flows, with Zebra printer integration.</p>
-                        <span class="project-lang"><i class="fa-solid fa-code"></i> C# (.NET / XAML)</span>
+                        <span class="project-tag" data-i18n="tagData">Data Science</span>
+                        <h3 data-i18n="projDataTitle">Literacy Rate Data Analysis</h3>
+                        <p data-i18n="projDataDesc">Exploratory data analysis of literacy rate trends across states, gender, and age groups using Python, Pandas, SQL (pandasql), and Seaborn.</p>
+                        <span class="project-lang"><i class="fa-brands fa-python"></i> Python (Jupyter Notebook)</span>
                         <div class="project-links">
-                            <a href="https://github.com/Wsm39624/AIN-Kiosk-2" target="_blank" class="project-link" data-i18n="viewRepo" onclick="event.stopPropagation();">View Repository</a>
+                            <a href="https://github.com/Wsm39624/literacy-rate-analysis" target="_blank" class="project-link" data-i18n="viewRepo" onclick="event.stopPropagation();">View Repository</a>
                         </div>
                     </div>
                 </div>
             </article>
 
-            <!-- Project 6: World Clock -->
-            <article class="project-flip-card clickable-proj-card">
+            <!-- Project 7: World Clock -->
+            <article class="project-flip-card clickable-proj-card" data-category="web">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/clock-preview.jpg" alt="World Clock" loading="lazy">
@@ -392,8 +403,8 @@
                 </div>
             </article>
 
-            <!-- Project 7: Weather App -->
-            <article class="project-flip-card clickable-proj-card">
+            <!-- Project 8: Weather App -->
+            <article class="project-flip-card clickable-proj-card" data-category="web">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/weather-preview.jpg" alt="Weather App" loading="lazy">
@@ -418,10 +429,12 @@
         </div>
     </section>  
 
-    <!-- Awards and Honors -->
+    <!-- Awards and Honors Section -->
     <section id="awards" class="section">
         <h2 data-i18n="awardsTitle" class="section-title">Awards & Honors</h2>
-        <div class="about-content">
+        <div class="awards-grid">
+            
+            <!-- Award 1: Kuwait AI Hackathon -->
             <article class="award-card">
                 <div class="award-icon">🏆</div>
                 <h3 data-i18n="awardTitle">1st Place Winner — Kuwait AI Hackathon</h3>
@@ -451,10 +464,49 @@
                     </div>
                 </div>
             </article>
+
+            <!-- Award 2: AOU Champions 2026 Interactive Slider (Exactly 3 Images) -->
+            <article class="award-card">
+                <div class="award-icon">🌟</div>
+                <h3 data-i18n="aouChampTitle">Featured in AOU Champions 2026</h3>
+                <p data-i18n="aouChampDesc">Featured in the 3rd Edition publication of Arab Open University Champions, celebrating leading achievements in AI & Innovation across KSA and GCC.</p>
+                
+                <div class="award-slider-container" id="aouSlider">
+                    <button class="slider-btn slider-btn-prev" id="aouPrev" aria-label="Previous Image">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="slider-wrapper">
+                        <!-- Slide 1: Cover Green Page -->
+                        <div class="slide active">
+                            <img src="AOU Champions 2026 Cover.png" alt="AOU Champions 2026 Cover" loading="lazy">
+                        </div>
+                        <!-- Slide 2: Darbak Wins First Place -->
+                        <div class="slide">
+                            <img src="AOU Champions 2026 Darbak.png" alt="Darbak Wins First Place Article" loading="lazy">
+                        </div>
+                        <!-- Slide 3: Monsha'at Bootcamp -->
+                        <div class="slide">
+                            <img src="AOU Champions 2026 Monsha'at.png" alt="Monsha'at Entrepreneurship Bootcamp Article" loading="lazy">
+                        </div>
+                    </div>
+
+                    <button class="slider-btn slider-btn-next" id="aouNext" aria-label="Next Image">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <div class="slider-dots" id="aouDots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                    </div>
+                </div>
+            </article>
+
         </div>
     </section>
 
-    <!-- Certificates -->
+    <!-- Certificates Section -->
     <section id="certificates" class="section bg-alt">
         <h2 data-i18n="certsTitle" class="section-title">Certificates & Training</h2>
         <p class="certs-subtitle" data-i18n="certsSubtitle">A record of continuous learning across AI, cloud, and applied data programs.</p>
@@ -508,7 +560,6 @@
                 </div>
             </button>
 
-            <!-- Certificate 7: MiyahThon 3 Digital Bootcamp -->
             <button class="cert-card" data-img="certs/miyahthon-cert.jpg">
                 <img src="certs/miyahthon-cert.jpg" alt="MiyahThon 3 Digital Bootcamp Certificate" loading="lazy">
                 <div class="cert-info">
@@ -520,13 +571,12 @@
         </div>
     </section>
 
-    <!-- New UI Prototype Interactive Contact Section -->
-    <section id="contact" class="section bg-alt">
+    <!-- Contact Section -->
+    <section id="contact" class="section">
         <h2 data-i18n="contactTitle" class="section-title">Get In Touch</h2>
         <p data-i18n="contactDesc" class="contact-subtitle">Let’s build something extraordinary together. Have a project, job offer, or just want to say hi? Send me a message!</p>
         
         <div class="contact-wrapper">
-            <!-- Formspree Glassmorphism Form Box -->
             <form id="contact-form" action="https://formspree.io/f/xgaaawgd" method="POST" class="contact-form-box">
                 <div class="form-row">
                     <div class="form-group">
@@ -555,7 +605,6 @@
                 <div id="form-status" class="form-status"></div>
             </form>
 
-            <!-- Bottom Connection Divider & Links -->
             <div class="connect-divider">
                 <span data-i18n="connectDivider">Or connect directly via</span>
             </div>
