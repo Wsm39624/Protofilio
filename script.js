@@ -211,27 +211,66 @@ function toggleLanguage() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 3D Grid Interactive Canvas (Compact Radius & Radial Depth Dynamic Fill)
+// Dynamic Blue Flame / Meteor Grid Trail Canvas Effect ☄️🔥
     const canvas = document.getElementById('gridCanvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+        
+        const cellSize = 15;
+        let width = 0;
+        let height = 0;
+        let dpr = window.devicePixelRatio || 1;
 
-        const cellSize = 40;
-        const maxRadius = 110; // Smaller precise radius
-        let mouseX = -1000;
-        let mouseY = -1000;
+        let targetX = -1000;
+        let targetY = -1000;
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+        const trailHistory = [];
+        const maxTrailLength = 12; // طول ذيل شعلة النيزك
+
+        let isMoving = false;
+        let stopTimer = null;
+
+        function resizeCanvas() {
+            dpr = window.devicePixelRatio || 1;
+            width = window.innerWidth;
+            height = window.innerHeight;
+            
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            
+            ctx.scale(dpr, dpr);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
         window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            targetX = e.clientX;
+            targetY = e.clientY;
+            isMoving = true;
+
+            trailHistory.unshift({ x: targetX, y: targetY });
+            if (trailHistory.length > maxTrailLength) {
+                trailHistory.pop();
+            }
+
+            clearTimeout(stopTimer);
+            stopTimer = setTimeout(() => {
+                isMoving = false;
+            }, 100);
         });
+
+        const clearMouse = () => {
+            targetX = -1000;
+            targetY = -1000;
+            trailHistory.length = 0;
+            isMoving = false;
+        };
+
+        window.addEventListener('mouseleave', clearMouse);
+        document.addEventListener('mouseleave', clearMouse);
 
         function drawGrid() {
             ctx.clearRect(0, 0, width, height);
@@ -239,34 +278,64 @@ document.addEventListener('DOMContentLoaded', () => {
             const cols = Math.ceil(width / cellSize);
             const rows = Math.ceil(height / cellSize);
 
+            // تلاشي ذيل الشعلة عند توقف حركة الماوس
+            if (!isMoving && trailHistory.length > 0) {
+                trailHistory.pop();
+            }
+
             for (let i = 0; i < cols; i++) {
+                const x = i * cellSize;
+                const cellCenterX = x + cellSize / 2;
+
                 for (let j = 0; j < rows; j++) {
-                    const x = i * cellSize;
                     const y = j * cellSize;
+                    const cellCenterY = y + cellSize / 2;
 
-                    const distX = mouseX - (x + cellSize / 2);
-                    const distY = mouseY - (y + cellSize / 2);
-                    const dist = Math.sqrt(distX * distX + distY * distY);
-
-                    // Base Grid Lines
-                    ctx.strokeStyle = 'rgba(56, 189, 248, 0.04)';
-                    ctx.lineWidth = 1;
+                    // رسم خطوط الشبكة الأساسية الدقيقة
+                    ctx.strokeStyle = 'rgba(56, 189, 248, 0.035)';
+                    ctx.lineWidth = 0.10;
                     ctx.strokeRect(x, y, cellSize, cellSize);
 
-                    // 3D Dynamic Radial Color Interpolation (Darker near mouse, lighter at edge)
-                    if (dist < maxRadius) {
-                        const factor = 1 - (dist / maxRadius); // 1 at center, 0 at outer border
-                        
-                        // Darker/richer blue at center, lighter/softer at edges
-                        const alpha = factor * 0.45;
-                        const blueIntensity = Math.floor(165 + factor * 60);
+                    // حساب تدرج ألوان شعلة النار الزرقاء (Blue Flame Gradient)
+                    if (trailHistory.length > 0) {
+                        let maxGlowFactor = 0;
+                        let headDistanceFactor = 0; // معرفة مدى القرب من نواة الشعلة
 
-                        ctx.fillStyle = `rgba(14, ${blueIntensity}, 233, ${alpha})`;
-                        ctx.fillRect(x + 1, y + 1, cellSize - 2, cellSize - 2);
+                        for (let k = 0; k < trailHistory.length; k++) {
+                            const point = trailHistory[k];
+                            const distX = point.x - cellCenterX;
+                            const distY = point.y - cellCenterY;
+                            const distSq = distX * distX + distY * distY;
 
-                        ctx.strokeStyle = `rgba(56, 189, 248, ${alpha * 1.6})`;
-                        ctx.lineWidth = 1 + factor * 1.2;
-                        ctx.strokeRect(x, y, cellSize, cellSize);
+                            const pointRadius = (1 - k / trailHistory.length) * 38 + 10;
+                            const pointRadiusSq = pointRadius * pointRadius;
+
+                            if (distSq < pointRadiusSq) {
+                                const dist = Math.sqrt(distSq);
+                                const factor = (1 - dist / pointRadius) * (1 - k / trailHistory.length);
+                                if (factor > maxGlowFactor) {
+                                    maxGlowFactor = factor;
+                                    headDistanceFactor = 1 - (k / trailHistory.length); // 1 عند رأس الشعلة، وتتناقص نحو الذيل
+                                }
+                            }
+                        }
+
+                        if (maxGlowFactor > 0) {
+                            const alpha = maxGlowFactor * 0.65;
+                            
+                            // تدرج ألوان شعلة النار الزرقاء (Cyan Core -> Royal Blue -> Indigo Outer Glow)
+                            let r = Math.floor(14 + (1 - headDistanceFactor) * 20);
+                            let g = Math.floor(165 + headDistanceFactor * 90);  // إضاءة سيان ناصعة عند النواة
+                            let b = Math.floor(233 + headDistanceFactor * 22);
+
+                            ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                            ctx.fillRect(x + 0.5, y + 0.5, cellSize - 1, cellSize - 1);
+
+                            // إطار مشع للبيكسلات المضيئة
+                            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha * 1.6})`;
+                            ctx.lineWidth = 0.10;
+                            ctx.strokeRect(x, y, cellSize, cellSize);
+                        }
                     }
                 }
             }
@@ -275,7 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         drawGrid();
     }
-
     // Scroll active link navigation
     const sections = document.querySelectorAll('section, header');
     const navLinks = document.querySelectorAll('.nav-links a');
