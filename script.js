@@ -211,12 +211,12 @@ function toggleLanguage() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-// Dynamic Blue Flame / Meteor Grid Trail Canvas Effect ☄️🔥
+    // Canvas Overlay: Grid + Dynamic Meteor / Shooting Star Trails ☄️✨
     const canvas = document.getElementById('gridCanvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         
-        const cellSize = 15;
+        const cellSize = 12;
         let width = 0;
         let height = 0;
         let dpr = window.devicePixelRatio || 1;
@@ -225,10 +225,31 @@ document.addEventListener('DOMContentLoaded', () => {
         let targetY = -1000;
 
         const trailHistory = [];
-        const maxTrailLength = 12; // طول ذيل شعلة النيزك
+        const maxTrailLength = 12;
 
         let isMoving = false;
         let stopTimer = null;
+
+        // نظام المذنبات العشوائية الهادئة (Random Meteors System)
+        const maxMeteors = 3; // عدد قليل جداً لتجنب إزعاج العين
+        const meteors = [];
+
+        function createMeteor() {
+            return {
+                x: Math.random() * width,
+                y: Math.random() * (height * 0.5) - 100, // يبدأ من الجزء العلوي العشوائي
+                length: Math.random() * 80 + 40,        // ذيل الشهاب المنساب (حوالي 6 مربعات/بكسلات)
+                speed: Math.random() * 4 + 3,           // سرعة هادئة وناعمة
+                size: Math.random() * 2 + 1.5,          // سمك ناعم ورفيع
+                alpha: Math.random() * 0.5 + 0.3,       // شفاهية مريحة للعين
+                angle: Math.PI / 4                      // زاوية تساقط مائلة بـ 45 درجة
+            };
+        }
+
+        // إبقاء عدد محدد وهادئ من المذنبات في الشاشة
+        for (let i = 0; i < maxMeteors; i++) {
+            meteors.push(createMeteor());
+        }
 
         function resizeCanvas() {
             dpr = window.devicePixelRatio || 1;
@@ -272,17 +293,17 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('mouseleave', clearMouse);
         document.addEventListener('mouseleave', clearMouse);
 
-        function drawGrid() {
+        function drawGridAndEffects() {
             ctx.clearRect(0, 0, width, height);
 
             const cols = Math.ceil(width / cellSize);
             const rows = Math.ceil(height / cellSize);
 
-            // تلاشي ذيل الشعلة عند توقف حركة الماوس
             if (!isMoving && trailHistory.length > 0) {
                 trailHistory.pop();
             }
 
+            // 1. رسم شبكة الـ Grid وتتبع الماوس
             for (let i = 0; i < cols; i++) {
                 const x = i * cellSize;
                 const cellCenterX = x + cellSize / 2;
@@ -291,15 +312,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const y = j * cellSize;
                     const cellCenterY = y + cellSize / 2;
 
-                    // رسم خطوط الشبكة الأساسية الدقيقة
                     ctx.strokeStyle = 'rgba(56, 189, 248, 0.035)';
                     ctx.lineWidth = 0.10;
                     ctx.strokeRect(x, y, cellSize, cellSize);
 
-                    // حساب تدرج ألوان شعلة النار الزرقاء (Blue Flame Gradient)
                     if (trailHistory.length > 0) {
                         let maxGlowFactor = 0;
-                        let headDistanceFactor = 0; // معرفة مدى القرب من نواة الشعلة
+                        let headDistanceFactor = 0;
 
                         for (let k = 0; k < trailHistory.length; k++) {
                             const point = trailHistory[k];
@@ -315,23 +334,20 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const factor = (1 - dist / pointRadius) * (1 - k / trailHistory.length);
                                 if (factor > maxGlowFactor) {
                                     maxGlowFactor = factor;
-                                    headDistanceFactor = 1 - (k / trailHistory.length); // 1 عند رأس الشعلة، وتتناقص نحو الذيل
+                                    headDistanceFactor = 1 - (k / trailHistory.length);
                                 }
                             }
                         }
 
                         if (maxGlowFactor > 0) {
-                            const alpha = maxGlowFactor * 0.65;
-                            
-                            // تدرج ألوان شعلة النار الزرقاء (Cyan Core -> Royal Blue -> Indigo Outer Glow)
+                            const alpha = maxGlowFactor * 0.45;
                             let r = Math.floor(14 + (1 - headDistanceFactor) * 20);
-                            let g = Math.floor(165 + headDistanceFactor * 90);  // إضاءة سيان ناصعة عند النواة
+                            let g = Math.floor(165 + headDistanceFactor * 90);
                             let b = Math.floor(233 + headDistanceFactor * 22);
 
                             ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
                             ctx.fillRect(x + 0.5, y + 0.5, cellSize - 1, cellSize - 1);
 
-                            // إطار مشع للبيكسلات المضيئة
                             ctx.strokeStyle = `rgba(56, 189, 248, ${alpha * 1.6})`;
                             ctx.lineWidth = 0.10;
                             ctx.strokeRect(x, y, cellSize, cellSize);
@@ -339,11 +355,63 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             }
-            requestAnimationFrame(drawGrid);
+
+            // 2. رسم المذنبات/الشهب العشوائية
+            meteors.forEach((m, index) => {
+                m.x += Math.cos(m.angle) * m.speed;
+                m.y += Math.sin(m.angle) * m.speed;
+
+                const tailX = m.x - Math.cos(m.angle) * m.length;
+                const tailY = m.y - Math.sin(m.angle) * m.length;
+
+                const gradient = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+                gradient.addColorStop(0, `rgba(56, 189, 248, ${m.alpha})`); // رأس الشهاب بلون نيوني متوهج
+                gradient.addColorStop(0.3, `rgba(14, 165, 233, ${m.alpha * 0.6})`);
+                gradient.addColorStop(1, 'transparent'); // الذيل يتلاشى بنعومة
+
+                ctx.beginPath();
+                ctx.moveTo(m.x, m.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = m.size;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+
+                // عند خروج الشهاب من الشاشة، يتم إعادته بشكل عشوائي وبفترة زمنية هادئة
+                if (m.x > width + 100 || m.y > height + 100) {
+                    meteors[index] = createMeteor();
+                    meteors[index].x = Math.random() * (width * 0.8);
+                    meteors[index].y = -100;
+                }
+            });
+
+            requestAnimationFrame(drawGridAndEffects);
         }
 
-        drawGrid();
+        drawGridAndEffects();
     }
+
+    // Bi-Directional Staggered Card Slide Section Observer 🎴 (تفعيل مستمر عند الصعود والنزول)
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('stagger-active');
+            } else {
+                entry.target.classList.remove('stagger-active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.section').forEach(section => {
+        sectionObserver.observe(section);
+    });
+
     // Scroll active link navigation
     const sections = document.querySelectorAll('section, header');
     const navLinks = document.querySelectorAll('.nav-links a');

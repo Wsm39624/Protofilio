@@ -439,7 +439,6 @@ a {
     background-color: transparent;
 }
 
-/* Alternating Dark Blue Alt Background for contrast */
 .bg-alt {
     background-color: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(8px);
@@ -1222,6 +1221,97 @@ html[dir="rtl"] .form-submit-btn { align-self: flex-end; }
     border-top: 1px solid var(--card-border);
 }
 
+.cert-trigger-btn {
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--neon-blue);
+    padding: 0;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ==========================================================
+   Transition 4: Horizontal / Staggered Card Slide Effect
+   ========================================================== */
+.section {
+    position: relative;
+    opacity: 1;
+}
+
+/* العنوان الرئيسي للقسم */
+.section .section-title {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section.stagger-active .section-title {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* الكروت والعناصر الداخلية */
+.section .about-card,
+.section .timeline-item,
+.section .skills-ticker-wrapper,
+.section .project-flip-card,
+.section .award-card,
+.section .cert-card,
+.section .contact-wrapper {
+    opacity: 0;
+    transform: translateX(-40px) translateY(20px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* عكس اتجاه الانزلاق في اللغة العربية */
+html[dir="rtl"] .section .about-card,
+html[dir="rtl"] .section .timeline-item,
+html[dir="rtl"] .section .skills-ticker-wrapper,
+html[dir="rtl"] .section .project-flip-card,
+html[dir="rtl"] .section .award-card,
+html[dir="rtl"] .section .cert-card,
+html[dir="rtl"] .section .contact-wrapper {
+    transform: translateX(40px) translateY(20px);
+}
+
+/* تفعيل الحركة عند التمرير (Active State) */
+.section.stagger-active .about-card,
+.section.stagger-active .timeline-item,
+.section.stagger-active .skills-ticker-wrapper,
+.section.stagger-active .project-flip-card,
+.section.stagger-active .award-card,
+.section.stagger-active .cert-card,
+.section.stagger-active .contact-wrapper {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+}
+
+/* تأخير تتابعي تلقائي (Stagger Delays) لعناصر الشبكات */
+.section.stagger-active .projects-container .project-flip-card:nth-child(1),
+.section.stagger-active .certs-grid .cert-card:nth-child(1),
+.section.stagger-active .awards-grid .award-card:nth-child(1) { transition-delay: 0.08s; }
+
+.section.stagger-active .projects-container .project-flip-card:nth-child(2),
+.section.stagger-active .certs-grid .cert-card:nth-child(2),
+.section.stagger-active .awards-grid .award-card:nth-child(2) { transition-delay: 0.16s; }
+
+.section.stagger-active .projects-container .project-flip-card:nth-child(3),
+.section.stagger-active .certs-grid .cert-card:nth-child(3) { transition-delay: 0.24s; }
+
+.section.stagger-active .projects-container .project-flip-card:nth-child(4),
+.section.stagger-active .certs-grid .cert-card:nth-child(4) { transition-delay: 0.32s; }
+
+.section.stagger-active .projects-container .project-flip-card:nth-child(5),
+.section.stagger-active .certs-grid .cert-card:nth-child(5) { transition-delay: 0.40s; }
+
+.section.stagger-active .projects-container .project-flip-card:nth-child(6),
+.section.stagger-active .certs-grid .cert-card:nth-child(6) { transition-delay: 0.48s; }
+
+.section.stagger-active .projects-container .project-flip-card:nth-child(7),
+.section.stagger-active .certs-grid .cert-card:nth-child(7) { transition-delay: 0.56s; }
+
+.section.stagger-active .projects-container .project-flip-card:nth-child(8) { transition-delay: 0.64s; }
+
 /* Responsive Rules */
 @media (max-width: 1024px) {
     .projects-container { grid-template-columns: repeat(2, 1fr); }
@@ -1293,13 +1383,4 @@ html[dir="rtl"] .form-submit-btn { align-self: flex-end; }
     .section { padding: 4rem 6%; }
     .certs-grid { grid-template-columns: 1fr; }
     .awards-grid { grid-template-columns: 1fr; }
-}
-
-.cert-trigger-btn {
-    background: none;
-    border: none;
-    border-bottom: 1px solid var(--neon-blue);
-    padding: 0;
-    font-family: inherit;
-    cursor: pointer;
 }
