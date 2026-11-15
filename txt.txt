@@ -1,0 +1,11 @@
+A recent graduate from Arab Open University with a Bachelor of Computer Science,
+ I completed a Software Development Internship at Emerging Business Technologies (EBTCO) in July 2026.
+  During my time there, I contributed to cloud computing, full-stack prototyping, and product design, 
+  including leading the visitor UX design for a smart reception system and implementing bilingual interfaces and automated badge printing.
+   My core competencies include user experience design, Microsoft Entra ID, dashboard development, and data visualization.
+    I am motivated to apply my technical skills and academic 
+foundation to develop innovative solutions, with a focus on creating intuitive and impactful digital experiences.
+
+Computer Science graduate with hands-on experience across cloud computing, AI/ML engineering, full-stack development, and product UX.
+GCC Hackathon winner (1st place). Adept at turning technical challenges into real, 
+deployable solutions — from intelligent career platforms to smart kiosk systems — with a strong focus on impact and user experience.

@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Portfolio Motion Prototype</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Fira+Code:wght@400;500&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --card-bg: rgba(17, 24, 39, 0.78);
+            --neon-teal: #06b6d4;
+            --soft-purple: #a855f7;
+            --warm-amber: #f59e0b;
+            --text-white: #f9fafb;
+            --text-slate: #9ca3af;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* إخفاء شريط التمرير الجانبي تماماً */
+        html, body {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        ::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* الشريط العلوي الديناميكي */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-teal), var(--soft-purple), var(--warm-amber));
+            z-index: 2000;
+            box-shadow: 0 0 12px var(--neon-teal);
+            transition: width 0.1s ease-out;
+        }
+
+        /* Navbar */
+        .demo-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(3, 7, 18, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .demo-nav.scrolled {
+            padding: 0.8rem 8%;
+            background: rgba(3, 7, 18, 0.92);
+            border-bottom-color: rgba(6, 182, 212, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        #magic-line {
+            position: absolute;
+            bottom: -6px;
+            height: 3px;
+            background: var(--neon-teal);
+            box-shadow: 0 0 10px var(--neon-teal);
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .demo-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 5% 4rem 5%;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .section-bg-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .section-content-z {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .section-title.reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --------------------------------------------------
+           1. Home Background: Interactive Aurora & Constellation
+           -------------------------------------------------- */
+        #home-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .aurora-orb-1, .aurora-orb-2 {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            animation: auroraFloat 12s ease-in-out infinite alternate;
+        }
+
+        .aurora-orb-1 {
+            width: 450px;
+            height: 450px;
+            background: var(--neon-teal);
+            top: 15%;
+            left: 20%;
+        }
+
+        .aurora-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--soft-purple);
+            bottom: 15%;
+            right: 20%;
+            animation-delay: -6s;
+        }
+
+        @keyframes auroraFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, -40px) scale(1.15); }
+        }
+
+        /* --------------------------------------------------
+           2. About Background & Typewriter Effect
+           -------------------------------------------------- */
+        #about .section-bg-layer {
+            background: radial-gradient(circle at 30% 50%, rgba(168, 85, 247, 0.12) 0%, transparent 55%),
+                        radial-gradient(circle at 70% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 55%);
+        }
+
+        .typewriter-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 18px;
+            padding: 2.5rem;
+            max-width: 750px;
+            width: 100%;
+            min-height: 180px;
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: var(--text-white);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.3em;
+            background-color: var(--neon-teal);
+            vertical-align: middle;
+            margin-right: 4px;
+            animation: blinkCursor 0.8s infinite;
+        }
+
+        @keyframes blinkCursor {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        /* --------------------------------------------------
+           3. Experience Background: Interactive Career Path SVG
+           -------------------------------------------------- */
+        .career-path-svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.35;
+        }
+
+        .career-line {
+            stroke-dasharray: 12 12;
+            animation: dashFlow 20s linear infinite;
+        }
+
+        @keyframes dashFlow {
+            to { stroke-dashoffset: -480; }
+        }
+
+        /* --------------------------------------------------
+           4. Skills Background: Scattered Words (No Overlap)
+           -------------------------------------------------- */
+        .floating-word {
+            position: absolute;
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            color: rgba(6, 182, 212, 0.08);
+            user-select: none;
+            white-space: nowrap;
+            animation: gentleFloat ease-in-out infinite alternate;
+        }
+
+        @keyframes gentleFloat {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(12px, -14px); }
+        }
+
+        /* حركة الأفعى المتسلسلة للمهارات */
+        .skills-snake-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            overflow: hidden;
+            width: 100%;
+            max-width: 1100px;
+            padding: 1.5rem 0;
+            direction: ltr !important;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .snake-track {
+            display: flex !important;
+            width: max-content;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .snake-content {
+            display: flex !important;
+            gap: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .track-snake-1 { transform: translateX(100px); }
+        .track-snake-1.reveal-active { opacity: 1; transform: translateX(0); transition-delay: 0s; }
+        .track-snake-1.reveal-active .snake-content { animation: snakeMoveLeft 25s linear infinite; }
+
+        .track-snake-2 { transform: translateX(-100px); }
+        .track-snake-2.reveal-active { opacity: 1; transform: translateX(0); transition-delay: 0.6s; }
+        .track-snake-2.reveal-active .snake-content { animation: snakeMoveRight 25s linear infinite 0.6s; }
+
+        .track-snake-3 { transform: translateX(100px); }
+        .track-snake-3.reveal-active { opacity: 1; transform: translateX(0); transition-delay: 1.2s; }
+        .track-snake-3.reveal-active .snake-content { animation: snakeMoveLeft 25s linear infinite 1.2s; }
+
+        .skills-snake-wrapper:hover .snake-content { animation-play-state: paused; }
+
+        @keyframes snakeMoveLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        @keyframes snakeMoveRight { 0% { transform: translateX(-100%); } 100% { transform: translateX(0); } }
+
+        .skill-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(17, 24, 39, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-white);
+            backdrop-filter: blur(6px);
+        }
+        .skill-chip i { color: var(--neon-teal); }
+
+        /* --------------------------------------------------
+           5. Projects Background: Live Code Typewriter + Scrolling Loop
+           -------------------------------------------------- */
+        .code-scrolling-column {
+            position: absolute;
+            top: 0;
+            left: 5%;
+            width: 42%;
+            height: 200%;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: rgba(6, 182, 212, 0.14);
+            direction: ltr;
+            text-align: left;
+            animation: codeVerticalLoop 24s linear infinite;
+        }
+
+        @keyframes codeVerticalLoop {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        .code-typewriter-column {
+            position: absolute;
+            top: 14%;
+            right: 5%;
+            width: 42%;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: rgba(168, 85, 247, 0.22);
+            direction: ltr;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+
+        /* --------------------------------------------------
+           6. Awards Background: Rising Golden Particles
+           -------------------------------------------------- */
+        #awards .section-bg-layer {
+            background: radial-gradient(circle at 50% 60%, rgba(245, 158, 11, 0.12) 0%, transparent 65%);
+        }
+
+        .gold-particle {
+            position: absolute;
+            bottom: -20px;
+            width: 6px;
+            height: 6px;
+            background: var(--warm-amber);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--warm-amber);
+            opacity: 0;
+            animation: riseUp linear infinite;
+        }
+
+        @keyframes riseUp {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-105vh) scale(1.2); opacity: 0; }
+        }
+
+        /* --------------------------------------------------
+           7. Certificates Background: Rotating Seal Rings
+           -------------------------------------------------- */
+        .cert-seal-ring {
+            position: absolute;
+            border: 1px dashed rgba(6, 182, 212, 0.15);
+            border-radius: 50%;
+            animation: spinSlow 40s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* --------------------------------------------------
+           8. Contact Background & Flying Paper Plane Button
+           -------------------------------------------------- */
+        .radar-ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            border-radius: 50%;
+            animation: rippleExpand 5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+        }
+
+        @keyframes rippleExpand {
+            0% { width: 100px; height: 100px; opacity: 0.8; }
+            100% { width: 900px; height: 900px; opacity: 0; }
+        }
+
+        .contact-form-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.2rem;
+            max-width: 520px;
+            width: 100%;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            text-align: left;
+            direction: ltr;
+        }
+
+        .demo-textarea {
+            width: 100%;
+            height: 110px;
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 1rem;
+            color: var(--text-white);
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            resize: none;
+            margin-bottom: 1.2rem;
+            outline: none;
+        }
+
+        .demo-textarea:focus {
+            border-color: var(--neon-teal);
+        }
+
+        /* زر Send Message المطابق لتصميمك */
+        .btn-send-plane {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #9333ea 0%, #38bdf8 100%);
+            color: #ffffff;
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.45);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: visible;
+        }
+
+        .btn-send-plane:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 28px rgba(56, 189, 248, 0.65);
+        }
+
+        .paper-plane-icon {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        /* أنيميشن انطلاق الطائرة الورقية عند الضغط */
+        .plane-flying {
+            animation: flyAwayPlane 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes flyAwayPlane {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            20% {
+                transform: translate(-8px, 6px) rotate(-12deg) scale(0.95);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(260px, -220px) rotate(25deg) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        /* كروت المحتوى العامة */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .demo-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 18px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(10px);
+            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+                        opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.3s ease;
+        }
+
+        .demo-card:hover {
+            border-color: var(--neon-teal);
+        }
+
+        .reveal-from-bottom { opacity: 0; transform: translateY(80px); }
+        .reveal-from-right  { opacity: 0; transform: translateX(100px); }
+        .reveal-from-left   { opacity: 0; transform: translateX(-100px); }
+
+        .reveal-active {
+            opacity: 1 !important;
+            transform: translate(0, 0) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scroll-progress"></div>
+
+    <!-- Navbar -->
+    <nav class="demo-nav" id="main-nav">
+        <div style="font-size: 1.3rem; font-weight: 800;">Wesam<span style="color:var(--warm-amber)">.</span></div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#awards">Awards</a></li>
+            <li><a href="#certificates">Certificates</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <div id="magic-line"></div>
+        </ul>
+    </nav>
+
+    <!-- 1. Home (Aurora + Interactive Particle Constellation) -->
+    <section id="home" class="demo-section">
+        <div class="section-bg-layer">
+            <div class="aurora-orb-1"></div>
+            <div class="aurora-orb-2"></div>
+            <canvas id="home-canvas"></canvas>
+        </div>
+        <div class="section-content-z">
+            <div class="demo-card reveal-from-bottom" style="max-width:620px;">
+                <h2>1. Home 🏠</h2>
+                <p>حرك الماوس في الخلفية لمشاهدة تفاعل الشبكة الضوئية مع الشفق النيوني، وانزل لاستكشاف باقي الأقسام!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. About (تأثير الكتابة الحية Typewriter) -->
+    <section id="about" class="demo-section">
+        <div class="section-bg-layer"></div>
+        <div class="section-content-z">
+            <h2 class="section-title reveal-from-bottom">2. About Me 👨‍💻</h2>
+            <div class="typewriter-box" id="about-typewriter-container">
+                <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Experience (خلفية مسار زمني متصل SVG) -->
+    <section id="experience" class="demo-section">
+        <div class="section-bg-layer">
+            <svg class="career-path-svg" viewBox="0 0 1200 600" fill="none" preserveAspectRatio="none">
+                <path class="career-line" d="M-50,450 C300,450 350,150 650,250 C950,350 1000,100 1250,150" stroke="#06b6d4" stroke-width="2.5"/>
+                <circle cx="320" cy="310" r="6" fill="#06b6d4"/>
+                <circle cx="650" cy="250" r="8" fill="#a855f7"/>
+                <circle cx="980" cy="180" r="6" fill="#f59e0b"/>
+            </svg>
+        </div>
+        <div class="section-content-z">
+            <h2 class="section-title reveal-from-right">3. Professional Experience 💼</h2>
+            <div class="grid-cards">
+                <div class="demo-card reveal-from-right">
+                    <h3>EBTco — Software Development Intern</h3>
+                    <p>قيادة تجربة المستخدم لنظام Ain Kiosk الذكي وبناء لوحات متابعة الأداء.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Skills (كلمات المهارات موزعة بتوازن بدون تداخل + حركة الأفعى) -->
+    <section id="skills" class="demo-section">
+        <div class="section-bg-layer" id="skills-scattered-bg"></div>
+        <div class="section-content-z">
+            <h2 class="section-title reveal-from-bottom">4. Technical Skills ⚡</h2>
+            <div class="skills-snake-wrapper">
+                <div class="snake-track track-snake-1">
+                    <div class="snake-content">
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 1</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 2</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 3</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 4</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 5</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 6</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 7</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 8</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 9</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 10</span>
+                    </div>
+                    <div class="snake-content" aria-hidden="true">
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 1</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 2</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 3</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 4</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 5</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 6</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 7</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 8</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 9</span>
+                        <span class="skill-chip"><i class="fa-solid fa-code"></i> Skill 10</span>
+                    </div>
+                </div>
+                <div class="snake-track track-snake-2">
+                    <div class="snake-content">
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 11</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 12</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 13</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 14</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 15</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 16</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 17</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 18</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 19</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 20</span>
+                    </div>
+                    <div class="snake-content" aria-hidden="true">
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 11</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 12</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 13</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 14</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 15</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 16</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 17</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 18</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 19</span>
+                        <span class="skill-chip"><i class="fa-solid fa-layer-group"></i> Skill 20</span>
+                    </div>
+                </div>
+                <div class="snake-track track-snake-3">
+                    <div class="snake-content">
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 21</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 22</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 23</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 24</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 25</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 26</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 27</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 28</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 29</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 30</span>
+                    </div>
+                    <div class="snake-content" aria-hidden="true">
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 21</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 22</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 23</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 24</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 25</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 26</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 27</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 28</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 29</span>
+                        <span class="skill-chip"><i class="fa-solid fa-star"></i> Skill 30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Projects (أكواد تتحرك بلوب مستمر + أكواد تنكتب حياً Typewriter) -->
+    <section id="projects" class="demo-section">
+        <div class="section-bg-layer">
+            <!-- العمود الأيسر: شيفرات تتحرك في حلقة مستمرة للأعلى -->
+            <div class="code-scrolling-column" id="scrolling-code-loop"></div>
+            <!-- العمود الأيمن: كود ينكتب حياً حرفاً بحرف -->
+            <div class="code-typewriter-column"><span id="live-code-typewriter"></span><span class="typewriter-cursor"></span></div>
+        </div>
+        <div class="section-content-z">
+            <h2 class="section-title reveal-from-left">5. Featured Projects 🚀</h2>
+            <div class="grid-cards">
+                <div class="demo-card reveal-from-left">
+                    <h3>Darbak.AI (دَرْبَك)</h3>
+                    <p>منصة التوجيه المهني الذكية والحائزة على المركز الأول خليجياً.</p>
+                </div>
+                <div class="demo-card reveal-from-left" style="transition-delay: 0.15s;">
+                    <h3>Hassen (حَصِين)</h3>
+                    <p>منصة الامتثال المالي وحماية البيانات وفق معايير SAMA و SDAIA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Awards (جزيئات ذهبية متصاعدة) -->
+    <section id="awards" class="demo-section">
+        <div class="section-bg-layer" id="awards-particles-bg"></div>
+        <div class="section-content-z">
+            <h2 class="section-title reveal-from-left">6. Honors & Awards 🏆</h2>
+            <div class="grid-cards">
+                <div class="demo-card reveal-from-left">
+                    <i class="fa-solid fa-trophy" style="font-size:2.5rem; color:var(--warm-amber); margin-bottom:1rem;"></i>
+                    <h3>المركز الأول على مستوى الخليج</h3>
+                    <p>مسابقة AI+X Hackathon في دولة الكويت.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Certificates (حلقات اعتماد هندسية دوارة) -->
+    <section id="certificates" class="demo-section">
+        <div class="section-bg-layer">
+            <div class="cert-seal-ring" style="top: 50%; left: 50%; width: 450px; height: 450px;"></div>
+            <div class="cert-seal-ring" style="top: 50%; left: 50%; width: 680px; height: 680px; animation-direction: reverse;"></div>
+        </div>
+        <div class="section-content-z">
+            <h2 class="section-title reveal-from-bottom">7. Certifications 📜</h2>
+            <div class="grid-cards">
+                <div class="demo-card reveal-from-bottom">
+                    <h3>Microsoft Azure Administrator (AZ-104)</h3>
+                    <p>إدارة البنية السحابية والشبكات والهويات الرقمية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Contact (موجات رادار + زر Send Message بطائرة ورقية تطير) -->
+    <section id="contact" class="demo-section">
+        <div class="section-bg-layer">
+            <div class="radar-ripple" style="animation-delay: 0s;"></div>
+            <div class="radar-ripple" style="animation-delay: 1.6s;"></div>
+            <div class="radar-ripple" style="animation-delay: 3.2s;"></div>
+        </div>
+        <div class="section-content-z">
+            <h2 class="section-title reveal-from-right">8. Get In Touch 📬</h2>
+            <div class="contact-form-box reveal-from-right">
+                <textarea class="demo-textarea" placeholder="Hi Wesam, I loved your portfolio and would like to discuss..."></textarea>
+                <button type="button" class="btn-send-plane" id="send-msg-btn">
+                    <span id="send-btn-text">Send Message</span>
+                    <i class="fa-solid fa-paper-plane paper-plane-icon" id="paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. شريط التقدم العلوي والـ Navbar
+            const topBar = document.getElementById('scroll-progress');
+            const mainNav = document.getElementById('main-nav');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const magicLine = document.getElementById('magic-line');
+
+            function updateMagicLine(target) {
+                if (!target || !magicLine) return;
+                magicLine.style.width = target.offsetWidth + 'px';
+                magicLine.style.left = target.offsetLeft + 'px';
+            }
+
+            const activeLink = document.querySelector('.nav-links a.active');
+            if (activeLink) updateMagicLine(activeLink);
+
+            window.addEventListener('scroll', () => {
+                const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (window.pageYOffset / totalHeight) * 100;
+                if (topBar) topBar.style.width = progress + '%';
+
+                if (window.scrollY > 50) mainNav.classList.add('scrolled');
+                else mainNav.classList.remove('scrolled');
+
+                let current = '';
+                document.querySelectorAll('section').forEach(sec => {
+                    const top = sec.offsetTop;
+                    if (window.pageYOffset >= (top - window.innerHeight / 3)) {
+                        current = sec.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                        updateMagicLine(link);
+                    }
+                });
+            });
+
+            // 2. شبكة الجزيئات التفاعلية في قسم Home
+            const homeCanvas = document.getElementById('home-canvas');
+            const hCtx = homeCanvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: null, y: null };
+
+            function resizeHomeCanvas() {
+                homeCanvas.width = window.innerWidth;
+                homeCanvas.height = window.innerHeight;
+            }
+            resizeHomeCanvas();
+            window.addEventListener('resize', resizeHomeCanvas);
+
+            homeCanvas.parentElement.parentElement.addEventListener('mousemove', (e) => {
+                const rect = homeCanvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+
+            for (let i = 0; i < 45; i++) {
+                particles.push({
+                    x: Math.random() * homeCanvas.width,
+                    y: Math.random() * homeCanvas.height,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.5) * 0.6,
+                    r: Math.random() * 2 + 1
+                });
+            }
+
+            function animateHomeParticles() {
+                hCtx.clearRect(0, 0, homeCanvas.width, homeCanvas.height);
+                particles.forEach((p, idx) => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > homeCanvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > homeCanvas.height) p.vy *= -1;
+
+                    hCtx.beginPath();
+                    hCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    hCtx.fillStyle = 'rgba(6, 182, 212, 0.45)';
+                    hCtx.fill();
+
+                    for (let j = idx + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                        if (dist < 130) {
+                            hCtx.beginPath();
+                            hCtx.moveTo(p.x, p.y);
+                            hCtx.lineTo(p2.x, p2.y);
+                            hCtx.strokeStyle = `rgba(6, 182, 212, ${0.15 * (1 - dist / 130)})`;
+                            hCtx.stroke();
+                        }
+                    }
+
+                    if (mouse.x && mouse.y) {
+                        const mDist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                        if (mDist < 160) {
+                            hCtx.beginPath();
+                            hCtx.moveTo(p.x, p.y);
+                            hCtx.lineTo(mouse.x, mouse.y);
+                            hCtx.strokeStyle = `rgba(168, 85, 247, ${0.35 * (1 - mDist / 160)})`;
+                            hCtx.stroke();
+                        }
+                    }
+                });
+                requestAnimationFrame(animateHomeParticles);
+            }
+            animateHomeParticles();
+
+            // 3. محرك الكتابة الحية لقسم About
+            const aboutText = "أنا وسام محمد الطباع، مطور برمجيات ومهندس حلول ذكاء اصطناعي مقيم في الرياض. أجمع بين هندسة الأنظمة الخلفية النظيفة وتصميم واجهات المستخدم التفاعلية ثنائية اللغة لتحويل الأفكار المعقدة إلى منتجات رقمية حقيقية.";
+            const typeTarget = document.getElementById('typewriter-text');
+            let typeIndex = 0;
+            let typeTimer = null;
+
+            function startTypewriter() {
+                clearTimeout(typeTimer);
+                typeTarget.textContent = '';
+                typeIndex = 0;
+                function typeChar() {
+                    if (typeIndex < aboutText.length) {
+                        typeTarget.textContent += aboutText.charAt(typeIndex);
+                        typeIndex++;
+                        typeTimer = setTimeout(typeChar, 28);
+                    }
+                }
+                typeChar();
+            }
+
+            function resetTypewriter() {
+                clearTimeout(typeTimer);
+                typeTarget.textContent = '';
+                typeIndex = 0;
+            }
+
+            // 4. توزيع المهارات في خلفية Skills بدون أي تداخل (Grid-Cell Matrix)
+            const skillsBg = document.getElementById('skills-scattered-bg');
+            const scatteredLayout = [
+                { word: 'Python',           top: '8%',  left: '6%',  size: '1.8rem' },
+                { word: 'React',            top: '12%', left: '28%', size: '2.1rem' },
+                { word: 'Azure',            top: '9%',  left: '56%', size: '1.9rem' },
+                { word: 'Gemini API',       top: '11%', left: '78%', size: '2.0rem' },
+                { word: 'JavaScript',       top: '27%', left: '10%', size: '1.7rem' },
+                { word: 'Streamlit',        top: '26%', left: '74%', size: '1.8rem' },
+                { word: 'Machine Learning', top: '72%', left: '8%',  size: '1.6rem' },
+                { word: 'Node.js',          top: '74%', left: '36%', size: '2.0rem' },
+                { word: 'PostgreSQL',       top: '71%', left: '68%', size: '1.9rem' },
+                { word: 'Flask',            top: '86%', left: '18%', size: '1.8rem' },
+                { word: 'Figma',            top: '88%', left: '50%', size: '1.7rem' },
+                { word: 'UI/UX',            top: '85%', left: '82%', size: '1.9rem' }
+            ];
+
+            scatteredLayout.forEach((item, idx) => {
+                const span = document.createElement('span');
+                span.className = 'floating-word';
+                span.textContent = item.word;
+                span.style.top = item.top;
+                span.style.left = item.left;
+                span.style.fontSize = item.size;
+                span.style.animationDuration = (5 + (idx % 4) * 1.5) + 's';
+                span.style.animationDelay = (idx * 0.25) + 's';
+                skillsBg.appendChild(span);
+            });
+
+            // 5. أكواد المشاريع: عمود اللوب المستمر + عمود الكتابة الحية
+            const codeBlockSample = `
+const aiEngine = new GeminiTutor({
+  model: "gemini-1.5-flash",
+  bilingual: ["ar", "en"],
+  streaming: true
+});
+
+async function analyzeCompliance(payload) {
+  const standards = ["SAMA", "ZATCA", "PDPL"];
+  const report = await aiEngine.audit(payload, standards);
+  return { status: "VERIFIED", score: report.accuracy };
+}
+
+export function SpatialGridController(sections) {
+  sections.forEach(sec => sec.enableMotion());
+}
+`;
+            const scrollingCol = document.getElementById('scrolling-code-loop');
+            scrollingCol.innerHTML = `<pre>${codeBlockSample}\n${codeBlockSample}</pre>`;
+
+            const liveCodeTarget = document.getElementById('live-code-typewriter');
+            const liveCodeText = `// Initializing Darbak.AI Career Engine...
+import { CareerGraph, SkillMatcher } from '@wesam/core';
+
+async function buildCareerRoadmap(studentProfile) {
+  const skills = await SkillMatcher.extract(studentProfile);
+  const roadmap = CareerGraph.generatePath({
+    targetRole: 'AI Solutions Architect',
+    currentSkills: skills,
+    region: 'GCC'
+  });
+  return roadmap.optimize();
+}`;
+            let codeCharIdx = 0;
+            function loopCodeTypewriter() {
+                if (codeCharIdx <= liveCodeText.length) {
+                    liveCodeTarget.textContent = liveCodeText.slice(0, codeCharIdx);
+                    codeCharIdx++;
+                    setTimeout(loopCodeTypewriter, 35);
+                } else {
+                    setTimeout(() => {
+                        codeCharIdx = 0;
+                        loopCodeTypewriter();
+                    }, 2200);
+                }
+            }
+            loopCodeTypewriter();
+
+            // 6. الجزيئات الذهبية لقسم الجوائز
+            const awardsBg = document.getElementById('awards-particles-bg');
+            for (let i = 0; i < 18; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'gold-particle';
+                dot.style.left = (Math.random() * 95) + '%';
+                dot.style.animationDuration = (5 + Math.random() * 6) + 's';
+                dot.style.animationDelay = (Math.random() * 5) + 's';
+                awardsBg.appendChild(dot);
+            }
+
+            // 7. أنيميشن انطلاق الطائرة الورقية عند الضغط على Send Message
+            const sendBtn = document.getElementById('send-msg-btn');
+            const planeIcon = document.getElementById('paper-plane');
+            const sendBtnText = document.getElementById('send-btn-text');
+
+            sendBtn.addEventListener('click', () => {
+                if (planeIcon.classList.contains('plane-flying')) return;
+                
+                planeIcon.classList.add('plane-flying');
+                sendBtnText.textContent = 'Sent!';
+
+                setTimeout(() => {
+                    planeIcon.classList.remove('plane-flying');
+                    sendBtnText.textContent = 'Send Message';
+                }, 1500);
+            });
+
+            // 8. مراقب التمرير ثنائي الاتجاه
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        if (entry.target.id === 'about-typewriter-container') {
+                            startTypewriter();
+                        }
+                    } else {
+                        entry.target.classList.remove('reveal-active');
+                        if (entry.target.id === 'about-typewriter-container') {
+                            resetTypewriter();
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            const targets = document.querySelectorAll('.reveal-from-bottom, .reveal-from-right, .reveal-from-left, .section-title, .snake-track, #about-typewriter-container, .contact-form-box');
+            targets.forEach(t => observer.observe(t));
+
+        });
+    </script>
+</body>
+</html>

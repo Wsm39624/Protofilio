@@ -7,17 +7,21 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Fira+Code:wght@400;500&family=Poppins:wght@400;500;600;700&family=Sora:wght@600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 3D Interactive Grid Canvas Overlay -->
+    <!-- Top Dynamic Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Interactive Mouse Trail Canvas -->
     <canvas id="gridCanvas"></canvas>
 
-    <nav class="navbar">
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="main-navbar">
         <div class="logo">Portfolio<span class="logo-dot">.</span></div>
 
         <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -25,7 +29,7 @@
         </button>
 
         <div class="nav-right" id="nav-right">
-            <ul class="nav-links">
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#home" class="active" data-i18n="navHome">Home</a></li>
                 <li><a href="#about" data-i18n="navAbout">About</a></li>
                 <li><a href="#experience" data-i18n="navExperience">Experience</a></li>
@@ -34,6 +38,7 @@
                 <li><a href="#awards" data-i18n="navAwards">Awards</a></li>
                 <li><a href="#certificates" data-i18n="navCertificates">Certificates</a></li>
                 <li><a href="#contact" data-i18n="navContact">Contact</a></li>
+                <div id="magic-line"></div>
             </ul>
             <button id="lang-toggle" onclick="toggleLanguage()">
                 <i class="fa-solid fa-globe"></i>
@@ -42,83 +47,88 @@
         </div>
     </nav>
 
+    <!-- Hero Section (Aurora + Interactive Particle Constellation) -->
     <header id="home" class="hero">
-        <div class="hero-content">
-            <h3 data-i18n="greeting">Hello,</h3>
-            <h1 class="my-name" data-i18n="myName">Wesam Mohammed Al-Tabbaa</h1>
-            <h2 class="typing-text"><span data-i18n="rolePrefix">And I'm a</span> <span class="highlight" data-i18n="role">AI Developer | Software Engineer</span></h2>
-
-            <p class="hero-desc" data-i18n="heroText">
-                Computer Science graduate with hands-on experience across cloud computing, AI/ML engineering, full-stack development, and product UX. GCC Hackathon winner (1st place). Adept at turning technical challenges into real, deployable solutions — from intelligent career platforms to smart kiosk systems — with a strong focus on impact and user experience.
-            </p>
-
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-num">1<sup>st</sup></span>
-                    <span class="stat-label" data-i18n="statHackathon">GCC Hackathon Place</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-num">7</span>
-                    <span class="stat-label" data-i18n="statCerts">Certificates & Trainings</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-num">6+</span>
-                    <span class="stat-label" data-i18n="statProjects">Shipped Projects</span>
-                </div>
-            </div>
-
-            <div class="social-icons">
-                <a href="https://www.linkedin.com/in/eng-wesam-al-tabba-" target="_blank" class="icon-circle" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="https://github.com/Wsm39624" target="_blank" class="icon-circle" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="mailto:wessamaltabaa@gmail.com" class="icon-circle" title="Email"><i class="fa-solid fa-envelope"></i></a>
-            </div>
-
-            <div class="btn-container">
-                <a href="Wesam Mohammed CV.pdf" target="_blank" class="btn-cv" data-i18n="cv" download>Download CV</a>
-            </div>
+        <div class="section-bg-layer">
+            <div class="aurora-orb-1"></div>
+            <div class="aurora-orb-2"></div>
+            <canvas id="home-constellation"></canvas>
         </div>
 
-        <div class="hero-image-container">
-            <div class="hero-badge-wrapper">
-                <div class="lanyard-strap"></div>
-                <div class="id-badge" id="idBadge">
-                    <div class="badge-clip"></div>
-                    <div class="badge-inner">
-                        <div class="badge-header">
-                            <span class="badge-dot"></span>
-                            <span class="badge-status">Available</span>
-                        </div>
-                        <div class="badge-photo-container">
-                           <img src="images/profile.png" alt="Wesam Al-Tabba" class="badge-pic">
-                        </div>
-                        <div class="badge-info">
-                            <h3 class="badge-name" data-i18n="myName">Wesam Al-Tabba</h3>
-                            <p class="badge-role" data-i18n="badgeRole">AI Developer | Software Engineer</p>
-                        </div>
-                        <div class="badge-footer">
-                            <div class="badge-barcode"></div>
-                        </div>
+        <div class="hero-bg-text" aria-hidden="true">WESAM</div>
+
+        <div class="hero-container">
+            <!-- Left Hero Content -->
+            <div class="hero-content">
+                <h3 data-i18n="greeting">Hello,</h3>
+                <h1 class="my-name" data-i18n="myName">Wesam Mohammed Al-Tabbaa</h1>
+                <h2 class="typing-text">
+                    <span data-i18n="rolePrefix" class="role-prefix">And I'm a</span>
+                    <span class="role-switcher-wrapper">
+                        <span id="role-text" class="highlight">AI Developer</span>
+                    </span>
+                </h2>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-num stat-gold">1<sup>st</sup></span>
+                        <span class="stat-label" data-i18n="statHackathon">GCC Hackathon Place</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num stat-violet">7</span>
+                        <span class="stat-label" data-i18n="statCerts">Certificates & Trainings</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num stat-teal">6+</span>
+                        <span class="stat-label" data-i18n="statProjects">Shipped Projects</span>
                     </div>
                 </div>
+
+                <div class="hero-actions-row">
+                    <div class="btn-container">
+                        <a href="Wesam Mohammed CV.pdf" target="_blank" class="btn-cv" data-i18n="cv" download>Download CV</a>
+                    </div>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/eng-wesam-al-tabba-" target="_blank" class="icon-circle icon-linkedin" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://github.com/Wsm39624" target="_blank" class="icon-circle icon-github" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="mailto:wessamaltabaa@gmail.com" class="icon-circle icon-email" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Cutout Portrait -->
+            <div class="hero-portrait-wrapper">
+                <div class="portrait-glow"></div>
+                <img src="images/profile2.png" alt="Wesam Al-Tabbaa" class="hero-cutout-img" onerror="this.onerror=null; this.src='profile.png';">
             </div>
         </div>
     </header>
 
-    <!-- About Section -->
+    <!-- About Section (Live Typewriter Reveal) -->
     <section id="about" class="section">
-        <h2 data-i18n="aboutTitle" class="section-title">About Me</h2>
-        <div class="about-card">
-            <p data-i18n="aboutDesc">
-               A recent graduate from Arab Open University with a Bachelor of Computer Science, I completed a Software Development Internship at Emerging Business Technologies (EBTCO) in July 2026. During my time there, I contributed to cloud computing, full-stack prototyping, and product design, including leading the visitor UX design for a smart reception system and implementing bilingual interfaces and automated badge printing. My core competencies include user experience design, Microsoft Entra ID, dashboard development, and data visualization. I am motivated to apply my technical skills and academic foundation to develop innovative solutions, with a focus on creating intuitive and impactful digital experiences.
+        <div class="section-bg-layer about-bg-layer"></div>
+        <h2 data-i18n="aboutTitle" class="section-title reveal-from-bottom">About Me</h2>
+        <div class="about-card reveal-from-bottom" id="about-typewriter-box">
+            <p class="about-typewriter-paragraph">
+                <span id="about-typed-text" data-i18n="aboutDesc">A recent graduate from Arab Open University with a Bachelor of Computer Science, I completed a Software Development Internship at Emerging Business Technologies (EBTCO) in July 2026. During my time there, I contributed to cloud computing, full-stack prototyping, and product design, including leading the visitor UX design for a smart reception system and implementing bilingual interfaces and automated badge printing. My core competencies include user experience design, Microsoft Entra ID, dashboard development, and data visualization. I am motivated to apply my technical skills and academic foundation to develop innovative solutions, with a focus on creating intuitive and impactful digital experiences.</span><span class="typewriter-cursor"></span>
             </p>
         </div>
     </section>
 
-    <!-- Professional Experience -->
+    <!-- Professional Experience Section (SVG Career Path Background) -->
     <section id="experience" class="section bg-alt">
-        <h2 data-i18n="expTitle" class="section-title">Professional Experience</h2>
+        <div class="section-bg-layer">
+            <svg class="career-path-svg" viewBox="0 0 1200 600" fill="none" preserveAspectRatio="none">
+                <path class="career-line" d="M-50,450 C300,450 350,150 650,250 C950,350 1000,100 1250,150" stroke="#06b6d4" stroke-width="2.5"/>
+                <circle cx="320" cy="310" r="6" fill="#06b6d4"/>
+                <circle cx="650" cy="250" r="8" fill="#a855f7"/>
+                <circle cx="980" cy="180" r="6" fill="#f59e0b"/>
+            </svg>
+        </div>
+
+        <h2 data-i18n="expTitle" class="section-title reveal-from-right">Professional Experience</h2>
         <div class="timeline">
-            <div class="timeline-item">
+            <div class="timeline-item reveal-from-right">
                 <div class="timeline-dot"></div>
                 
                 <div class="exp-flip-card clickable-flip-card" id="expCard">
@@ -149,13 +159,15 @@
         </div>
     </section>
 
-    <!-- Technical Skills -->
+    <!-- Technical Skills Section (Non-Overlapping Scattered Words + Sequential 1->2->3 Flow) -->
     <section id="skills" class="section">
-        <h2 data-i18n="skillsTitle" class="section-title">Technical Skills</h2>
+        <div class="section-bg-layer" id="skills-scattered-bg"></div>
+        <h2 data-i18n="skillsTitle" class="section-title reveal-from-bottom">Technical Skills</h2>
         
-        <div class="skills-ticker-wrapper">
-            <div class="ticker-track track-left">
-                <div class="ticker-content">
+        <div class="skills-ticker-wrapper" dir="ltr">
+            <!-- Track 1: Starts immediately (0s) Right -> Left -->
+            <div class="ticker-track track-left track-seq-1" dir="ltr">
+                <div class="ticker-content" dir="ltr">
                     <span class="skill-pill"><i class="fa-brands fa-python"></i> Python</span>
                     <span class="skill-pill"><i class="fa-solid fa-code-branch"></i> C#</span>
                     <span class="skill-pill"><i class="fa-brands fa-java"></i> Embedded Java</span>
@@ -168,7 +180,7 @@
                     <span class="skill-pill"><i class="fa-solid fa-mobile-screen-button"></i> App Development</span>
                     <span class="skill-pill"><i class="fa-solid fa-globe"></i> Web Development</span>
                 </div>
-                <div class="ticker-content" aria-hidden="true">
+                <div class="ticker-content" aria-hidden="true" dir="ltr">
                     <span class="skill-pill"><i class="fa-brands fa-python"></i> Python</span>
                     <span class="skill-pill"><i class="fa-solid fa-code-branch"></i> C#</span>
                     <span class="skill-pill"><i class="fa-brands fa-java"></i> Embedded Java</span>
@@ -183,22 +195,23 @@
                 </div>
             </div>
 
-            <div class="ticker-track track-right">
-                <div class="ticker-content">
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-key"></i> Microsoft Entra ID</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-cloud"></i> Cloud Administration</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-robot"></i> Generative AI & Prompting</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-microchip"></i> Artificial Intelligence (AI)</span>
+            <!-- Track 2: Starts after Track 1 (0.6s) Left -> Right -->
+            <div class="ticker-track track-right track-seq-2" dir="ltr">
+                <div class="ticker-content" dir="ltr">
+                    <span class="skill-pill highlight-pill-amber"><i class="fa-solid fa-key"></i> Microsoft Entra ID</span>
+                    <span class="skill-pill highlight-pill-purple"><i class="fa-solid fa-cloud"></i> Cloud Administration</span>
+                    <span class="skill-pill highlight-pill-teal"><i class="fa-solid fa-robot"></i> Generative AI & Prompting</span>
+                    <span class="skill-pill highlight-pill-teal"><i class="fa-solid fa-microchip"></i> Artificial Intelligence (AI)</span>
                     <span class="skill-pill"><i class="fa-solid fa-server"></i> Data Engineering</span>
                     <span class="skill-pill"><i class="fa-solid fa-chart-line"></i> Data Analysis</span>
                     <span class="skill-pill"><i class="fa-solid fa-box"></i> Pandas</span>
                     <span class="skill-pill"><i class="fa-solid fa-chart-column"></i> Matplotlib</span>
                 </div>
-                <div class="ticker-content" aria-hidden="true">
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-key"></i> Microsoft Entra ID</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-cloud"></i> Cloud Administration</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-robot"></i> Generative AI & Prompting</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-solid fa-microchip"></i> Artificial Intelligence (AI)</span>
+                <div class="ticker-content" aria-hidden="true" dir="ltr">
+                    <span class="skill-pill highlight-pill-amber"><i class="fa-solid fa-key"></i> Microsoft Entra ID</span>
+                    <span class="skill-pill highlight-pill-purple"><i class="fa-solid fa-cloud"></i> Cloud Administration</span>
+                    <span class="skill-pill highlight-pill-teal"><i class="fa-solid fa-robot"></i> Generative AI & Prompting</span>
+                    <span class="skill-pill highlight-pill-teal"><i class="fa-solid fa-microchip"></i> Artificial Intelligence (AI)</span>
                     <span class="skill-pill"><i class="fa-solid fa-server"></i> Data Engineering</span>
                     <span class="skill-pill"><i class="fa-solid fa-chart-line"></i> Data Analysis</span>
                     <span class="skill-pill"><i class="fa-solid fa-box"></i> Pandas</span>
@@ -206,10 +219,11 @@
                 </div>
             </div>
 
-            <div class="ticker-track track-left">
-                <div class="ticker-content">
-                    <span class="skill-pill highlight-pill"><i class="fa-brands fa-git-alt"></i> Git</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-brands fa-github"></i> GitHub & Version Control</span>
+            <!-- Track 3: Starts after Track 2 (1.2s) Right -> Left -->
+            <div class="ticker-track track-left track-seq-3" dir="ltr">
+                <div class="ticker-content" dir="ltr">
+                    <span class="skill-pill highlight-pill-amber"><i class="fa-brands fa-git-alt"></i> Git</span>
+                    <span class="skill-pill highlight-pill-purple"><i class="fa-brands fa-github"></i> GitHub & Version Control</span>
                     <span class="skill-pill"><i class="fa-solid fa-wrench"></i> Dev Tools</span>
                     <span class="skill-pill"><i class="fa-solid fa-bug"></i> Debugging</span>
                     <span class="skill-pill"><i class="fa-solid fa-pen-nib"></i> User Experience Design (UED)</span>
@@ -218,9 +232,9 @@
                     <span class="skill-pill"><i class="fa-solid fa-diagram-project"></i> Project Management</span>
                     <span class="skill-pill"><i class="fa-solid fa-lightbulb"></i> Problem Solving</span>
                 </div>
-                <div class="ticker-content" aria-hidden="true">
-                    <span class="skill-pill highlight-pill"><i class="fa-brands fa-git-alt"></i> Git</span>
-                    <span class="skill-pill highlight-pill"><i class="fa-brands fa-github"></i> GitHub & Version Control</span>
+                <div class="ticker-content" aria-hidden="true" dir="ltr">
+                    <span class="skill-pill highlight-pill-amber"><i class="fa-brands fa-git-alt"></i> Git</span>
+                    <span class="skill-pill highlight-pill-purple"><i class="fa-brands fa-github"></i> GitHub & Version Control</span>
                     <span class="skill-pill"><i class="fa-solid fa-wrench"></i> Dev Tools</span>
                     <span class="skill-pill"><i class="fa-solid fa-bug"></i> Debugging</span>
                     <span class="skill-pill"><i class="fa-solid fa-pen-nib"></i> User Experience Design (UED)</span>
@@ -233,11 +247,16 @@
         </div>
     </section>  
 
-    <!-- Featured Projects Section -->
+    <!-- Featured Projects Section (Infinite Code Loop + Live Code Typewriter) -->
     <section id="projects" class="section bg-alt">
-        <h2 data-i18n="projectsTitle" class="section-title">Featured Projects</h2>
+        <div class="section-bg-layer">
+            <div class="code-scrolling-column" id="scrolling-code-loop"></div>
+            <div class="code-typewriter-column"><span id="live-code-typewriter"></span><span class="typewriter-cursor"></span></div>
+        </div>
+
+        <h2 data-i18n="projectsTitle" class="section-title reveal-from-left">Featured Projects</h2>
         
-        <div class="project-filters">
+        <div class="project-filters reveal-from-left">
             <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
             <button class="filter-btn" data-filter="ai" data-i18n="filterAI">AI / ML</button>
             <button class="filter-btn" data-filter="ux" data-i18n="filterUX">UI/UX & Kiosk</button>
@@ -248,17 +267,17 @@
         <div class="projects-container">
 
             <!-- Project 1: Darbak.AI -->
-            <article class="project-flip-card clickable-proj-card" data-category="ai">
+            <article class="project-flip-card clickable-proj-card reveal-from-left" data-category="ai">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/darbak-preview.jpg" alt="Darbak.AI Project" loading="lazy">
                         <div class="card-overlay-title">
                             <h3>Darbak.AI</h3>
-                            <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
+                            <span class="project-tag tag-teal" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagAI">AI Platform</span>
+                        <span class="project-tag tag-teal" data-i18n="tagAI">AI Platform</span>
                         <h3>Darbak.AI</h3>
                         <p data-i18n="proj1Desc">Intelligent Career Guidance & Job Readiness platform connecting students with market needs using Python, Flask, and Google Gemini API, evaluated against CC2020 standards.</p>
                         <span class="project-lang"><i class="fa-brands fa-python"></i> Python · Flask</span>
@@ -270,17 +289,17 @@
             </article>
 
             <!-- Project 2: Hassen (حَصِين) -->
-            <article class="project-flip-card clickable-proj-card" data-category="ai">
+            <article class="project-flip-card clickable-proj-card reveal-from-left" style="transition-delay: 0.1s;" data-category="ai">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <img src="images/inventory-preview.jpg" alt="Hassen Project" loading="lazy">
+                        <img src="images/hassen-preview.jpg" alt="Hassen Project" loading="lazy">
                         <div class="card-overlay-title">
                             <h3 data-i18n="projHassenTitle">Hassen (حَصِين)</h3>
-                            <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
+                            <span class="project-tag tag-purple" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagFinTech">AI & FinTech</span>
+                        <span class="project-tag tag-purple" data-i18n="tagFinTech">AI & FinTech</span>
                         <h3 data-i18n="projHassenTitle">Hassen (حَصِين)</h3>
                         <p data-i18n="projHassenDesc">AI-powered FinTech compliance and data privacy platform aligned with SAMA, ZATCA, and SDAIA PDPL regulations. Amd Hackathon Finalist.</p>
                         <span class="project-lang"><i class="fa-solid fa-shield-halved"></i> Python · Gemini API · UI/UX</span>
@@ -292,17 +311,17 @@
             </article>
 
             <!-- Project 3: Ain Smart Kiosk -->
-            <article class="project-flip-card clickable-proj-card" data-category="ux">
+            <article class="project-flip-card clickable-proj-card reveal-from-left" style="transition-delay: 0.2s;" data-category="ux">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/kiosk-preview.jpg" alt="Ain Smart Kiosk" loading="lazy">
                         <div class="card-overlay-title">
                             <h3 data-i18n="projKioskTitle">Ain Smart Kiosk</h3>
-                            <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
+                            <span class="project-tag tag-amber" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagKiosk">UX / Kiosk</span>
+                        <span class="project-tag tag-amber" data-i18n="tagKiosk">UX / Kiosk</span>
                         <h3 data-i18n="projKioskTitle">Ain Smart Kiosk</h3>
                         <p data-i18n="projKioskDesc">Bilingual RTL reception kiosk covering walk-in, pre-registered, and VIP visitor flows, with Zebra printer integration.</p>
                         <span class="project-lang"><i class="fa-solid fa-code"></i> C# (.NET / XAML)</span>
@@ -314,17 +333,17 @@
             </article>
 
             <!-- Project 4: Dynamic Help Desk Scorecard Dashboard -->
-            <article class="project-flip-card clickable-proj-card" data-category="web ux">
+            <article class="project-flip-card clickable-proj-card reveal-from-left" data-category="web ux">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/scorecard-preview.jpg" alt="Help Desk Scorecard Dashboard" loading="lazy">
                         <div class="card-overlay-title">
                             <h3 data-i18n="projDashTitle">Dynamic Help Desk Scorecard</h3>
-                            <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
+                            <span class="project-tag tag-teal" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagDashboard">Dashboard</span>
+                        <span class="project-tag tag-teal" data-i18n="tagDashboard">Dashboard</span>
                         <h3 data-i18n="projDashTitle">Dynamic Help Desk Scorecard Dashboard</h3>
                         <p data-i18n="projDashDesc">Interactive scorecard dashboard with real-time data visualization components, built during the EBTco internship for technical performance assessment.</p>
                         <span class="project-lang"><i class="fa-brands fa-html5"></i> HTML · CSS · JavaScript</span>
@@ -337,17 +356,17 @@
             </article>
 
             <!-- Project 5: InventoryAI -->
-            <article class="project-flip-card clickable-proj-card" data-category="ai web">
+            <article class="project-flip-card clickable-proj-card reveal-from-left" style="transition-delay: 0.1s;" data-category="ai web">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/inventory-preview.jpg" alt="InventoryAI" loading="lazy">
                         <div class="card-overlay-title">
                             <h3 data-i18n="projInvTitle">InventoryAI</h3>
-                            <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
+                            <span class="project-tag tag-purple" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagAI">AI Platform</span>
+                        <span class="project-tag tag-purple" data-i18n="tagAI">AI Platform</span>
                         <h3 data-i18n="projInvTitle">InventoryAI — Supply Chain Strategy</h3>
                         <p data-i18n="projInvDesc">An AI-assisted analytics tool that reviews stagnant inventory and suggests data-driven supply chain and marketing strategies.</p>
                         <span class="project-lang"><i class="fa-brands fa-html5"></i> HTML · CSS · JavaScript</span>
@@ -360,17 +379,17 @@
             </article>
 
             <!-- Project 6: Literacy Rate Data Analysis -->
-            <article class="project-flip-card clickable-proj-card" data-category="data">
+            <article class="project-flip-card clickable-proj-card reveal-from-left" style="transition-delay: 0.2s;" data-category="data">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/literacy-preview.jpg" alt="Literacy Rate Data Analysis" loading="lazy">
                         <div class="card-overlay-title">
                             <h3 data-i18n="projDataTitle">Literacy Rate Data Analysis</h3>
-                            <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
+                            <span class="project-tag tag-amber" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagData">Data Science</span>
+                        <span class="project-tag tag-amber" data-i18n="tagData">Data Science</span>
                         <h3 data-i18n="projDataTitle">Literacy Rate Data Analysis</h3>
                         <p data-i18n="projDataDesc">Exploratory data analysis of literacy rate trends across states, gender, and age groups using Python, Pandas, SQL (pandasql), and Seaborn.</p>
                         <span class="project-lang"><i class="fa-brands fa-python"></i> Python (Jupyter Notebook)</span>
@@ -382,17 +401,17 @@
             </article>
 
             <!-- Project 7: World Clock -->
-            <article class="project-flip-card clickable-proj-card" data-category="web">
+            <article class="project-flip-card clickable-proj-card reveal-from-left" data-category="web">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/clock-preview.jpg" alt="World Clock" loading="lazy">
                         <div class="card-overlay-title">
                             <h3 data-i18n="proj3Title">World Clock</h3>
-                            <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
+                            <span class="project-tag tag-teal" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagWeb">Web App</span>
+                        <span class="project-tag tag-teal" data-i18n="tagWeb">Web App</span>
                         <h3 data-i18n="proj3Title">World Clock</h3>
                         <p data-i18n="proj3Desc">An application that displays real-time clocks for multiple time zones.</p>
                         <span class="project-lang"><i class="fa-brands fa-html5"></i> HTML · CSS · JavaScript</span>
@@ -404,17 +423,17 @@
             </article>
 
             <!-- Project 8: Weather App -->
-            <article class="project-flip-card clickable-proj-card" data-category="web">
+            <article class="project-flip-card clickable-proj-card reveal-from-left" style="transition-delay: 0.1s;" data-category="web">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="images/weather-preview.jpg" alt="Weather App" loading="lazy">
                         <div class="card-overlay-title">
                             <h3 data-i18n="proj4Title">Weather App</h3>
-                            <span class="project-tag" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Click / Tap to view details</span>
+                            <span class="project-tag tag-purple" data-i18n="clickFlipHint"><i class="fa-solid fa-rotate"></i> Details</span>
                         </div>
                     </div>
                     <div class="flip-card-back">
-                        <span class="project-tag" data-i18n="tagWeb">Web App</span>
+                        <span class="project-tag tag-purple" data-i18n="tagWeb">Web App</span>
                         <h3 data-i18n="proj4Title">Weather App</h3>
                         <p data-i18n="proj4Desc">A program that fetches and displays live weather data.</p>
                         <span class="project-lang"><i class="fa-brands fa-html5"></i> HTML · CSS · JavaScript</span>
@@ -429,13 +448,14 @@
         </div>
     </section>  
 
-    <!-- Awards and Honors Section -->
+    <!-- Awards Section (Rising Golden Stardust) -->
     <section id="awards" class="section">
-        <h2 data-i18n="awardsTitle" class="section-title">Awards & Honors</h2>
+        <div class="section-bg-layer" id="awards-particles-bg"></div>
+        <h2 data-i18n="awardsTitle" class="section-title reveal-from-left">Awards & Honors</h2>
         <div class="awards-grid">
             
-            <!-- Award 1: Kuwait AI Hackathon -->
-            <article class="award-card">
+            <!-- Award 1 -->
+            <article class="award-card reveal-from-left">
                 <div class="award-icon">🏆</div>
                 <h3 data-i18n="awardTitle">1st Place Winner — Kuwait AI Hackathon</h3>
                 <p data-i18n="awardDesc">Achieved 1st place across all participating teams from the Gulf Cooperation Council (GCC) countries (10/2025).</p>
@@ -465,8 +485,8 @@
                 </div>
             </article>
 
-            <!-- Award 2: AOU Champions 2026 Interactive Slider (Exactly 3 Images) -->
-            <article class="award-card">
+            <!-- Award 2 -->
+            <article class="award-card reveal-from-left" style="transition-delay: 0.15s;">
                 <div class="award-icon">🌟</div>
                 <h3 data-i18n="aouChampTitle">Featured in AOU Champions 2026</h3>
                 <p data-i18n="aouChampDesc">Featured in the 3rd Edition publication of Arab Open University Champions, celebrating leading achievements in AI & Innovation across KSA and GCC.</p>
@@ -477,15 +497,12 @@
                     </button>
                     
                     <div class="slider-wrapper">
-                        <!-- Slide 1: Cover Green Page -->
                         <div class="slide active">
                             <img src="AOU Champions 2026 Cover.png" alt="AOU Champions 2026 Cover" loading="lazy">
                         </div>
-                        <!-- Slide 2: Darbak Wins First Place -->
                         <div class="slide">
                             <img src="AOU Champions 2026 Darbak.png" alt="Darbak Wins First Place Article" loading="lazy">
                         </div>
-                        <!-- Slide 3: Monsha'at Bootcamp -->
                         <div class="slide">
                             <img src="AOU Champions 2026 Monsha'at.png" alt="Monsha'at Entrepreneurship Bootcamp Article" loading="lazy">
                         </div>
@@ -506,13 +523,19 @@
         </div>
     </section>
 
-    <!-- Certificates Section -->
+    <!-- Certificates Section (Rotating Verification Rings) -->
     <section id="certificates" class="section bg-alt">
-        <h2 data-i18n="certsTitle" class="section-title">Certificates & Training</h2>
-        <p class="certs-subtitle" data-i18n="certsSubtitle">A record of continuous learning across AI, cloud, and applied data programs.</p>
+        <div class="section-bg-layer">
+            <div class="cert-seal-ring ring-1" style="top: 50%; left: 50%; width: 580px; height: 580px;"></div>
+            <div class="cert-seal-ring ring-2" style="top: 50%; left: 50%; width: 880px; height: 880px;"></div>
+            <div class="cert-seal-ring ring-3" style="top: 50%; left: 50%; width: 1180px; height: 1180px;"></div>
+        </div>
+
+        <h2 data-i18n="certsTitle" class="section-title reveal-from-bottom">Certificates & Training</h2>
+        <p class="certs-subtitle reveal-from-bottom" data-i18n="certsSubtitle">A record of continuous learning across AI, cloud, and applied data programs.</p>
         <div class="certs-grid">
 
-            <button class="cert-card" data-img="certs/cert6-1.jpg">
+            <button class="cert-card reveal-from-bottom" data-img="certs/cert6-1.jpg">
                 <img src="certs/cert6-1.jpg" alt="Generative AI Workshop Certificate" loading="lazy">
                 <div class="cert-info">
                     <h3 data-i18n="cert1Title">Generative AI Workshop</h3>
@@ -520,7 +543,7 @@
                 </div>
             </button>
 
-            <button class="cert-card" data-img="certs/cert3-1.jpg">
+            <button class="cert-card reveal-from-bottom" data-img="certs/cert3-1.jpg">
                 <img src="certs/cert3-1.jpg" alt="AOU Computer Club Certificate" loading="lazy">
                 <div class="cert-info">
                     <h3 data-i18n="cert2Title">Artificial Intelligence Fundamentals</h3>
@@ -528,7 +551,7 @@
                 </div>
             </button>
 
-            <button class="cert-card" data-img="certs/cert1-1.jpg">
+            <button class="cert-card reveal-from-bottom" data-img="certs/cert1-1.jpg">
                 <img src="certs/cert1-1.jpg" alt="AI Horizons Summit Certificate" loading="lazy">
                 <div class="cert-info">
                     <h3 data-i18n="cert3Title">International Summit on AI Horizons</h3>
@@ -536,7 +559,7 @@
                 </div>
             </button>
 
-            <button class="cert-card" data-img="certs/cert5-1.jpg">
+            <button class="cert-card reveal-from-bottom" data-img="certs/cert5-1.jpg">
                 <img src="certs/cert5-1.jpg" alt="Huawei Program Certificate" loading="lazy">
                 <div class="cert-info">
                     <h3 data-i18n="cert4Title">Huawei Introductory Program & Developer Certifications</h3>
@@ -544,7 +567,7 @@
                 </div>
             </button>
 
-            <button class="cert-card" data-img="certs/cert2-1.jpg">
+            <button class="cert-card reveal-from-bottom" data-img="certs/cert2-1.jpg">
                 <img src="certs/cert2-1.jpg" alt="180 Seconds of Impact Certificate" loading="lazy">
                 <div class="cert-info">
                     <h3 data-i18n="cert5Title">"180 Seconds of Impact" Competition</h3>
@@ -552,7 +575,7 @@
                 </div>
             </button>
 
-            <button class="cert-card" data-img="certs/cert4-1.jpg">
+            <button class="cert-card reveal-from-bottom" data-img="certs/cert4-1.jpg">
                 <img src="certs/cert4-1.jpg" alt="EBTco Training Certificate" loading="lazy">
                 <div class="cert-info">
                     <h3 data-i18n="cert6Title">COOP Training — IT & Cybersecurity Dept.</h3>
@@ -560,7 +583,7 @@
                 </div>
             </button>
 
-            <button class="cert-card" data-img="certs/miyahthon-cert.jpg">
+            <button class="cert-card reveal-from-bottom" data-img="certs/miyahthon-cert.jpg">
                 <img src="certs/miyahthon-cert.jpg" alt="MiyahThon 3 Digital Bootcamp Certificate" loading="lazy">
                 <div class="cert-info">
                     <h3 data-i18n="cert7Title">MiyahThon 3 Digital Bootcamp</h3>
@@ -571,12 +594,34 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section (Architectural Network Lines & Glowing Nodes) -->
     <section id="contact" class="section">
-        <h2 data-i18n="contactTitle" class="section-title">Get In Touch</h2>
-        <p data-i18n="contactDesc" class="contact-subtitle">Let’s build something extraordinary together. Have a project, job offer, or just want to say hi? Send me a message!</p>
+        <div class="section-bg-layer contact-bg-layer">
+            <svg class="contact-network-svg" viewBox="0 0 1440 700" fill="none" preserveAspectRatio="xMidYMid slice">
+                <!-- Left Side Connection Lines & Nodes -->
+                <polyline points="0,140 180,140 260,220 340,220" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1.5"/>
+                <circle cx="180" cy="140" r="4" fill="#06b6d4" opacity="0.6"/>
+                <circle cx="260" cy="220" r="3" fill="#a855f7" opacity="0.6"/>
+
+                <polyline points="0,520 140,520 220,440 340,440" stroke="rgba(168, 85, 247, 0.25)" stroke-width="1.5"/>
+                <circle cx="140" cy="520" r="4" fill="#a855f7" opacity="0.6"/>
+                <circle cx="220" cy="440" r="3" fill="#06b6d4" opacity="0.6"/>
+
+                <!-- Right Side Connection Lines & Nodes -->
+                <polyline points="1440,180 1260,180 1180,260 1100,260" stroke="rgba(168, 85, 247, 0.25)" stroke-width="1.5"/>
+                <circle cx="1260" cy="180" r="4" fill="#a855f7" opacity="0.6"/>
+                <circle cx="1180" cy="260" r="3" fill="#06b6d4" opacity="0.6"/>
+
+                <polyline points="1440,560 1280,560 1200,480 1100,480" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1.5"/>
+                <circle cx="1280" cy="560" r="4" fill="#06b6d4" opacity="0.6"/>
+                <circle cx="1200" cy="480" r="3" fill="#f59e0b" opacity="0.6"/>
+            </svg>
+        </div>
+
+        <h2 data-i18n="contactTitle" class="section-title reveal-from-right">Get In Touch</h2>
+        <p data-i18n="contactDesc" class="contact-subtitle reveal-from-right">Let’s build something extraordinary together. Have a project, job offer, or just want to say hi? Send me a message!</p>
         
-        <div class="contact-wrapper">
+        <div class="contact-wrapper reveal-from-right">
             <form id="contact-form" action="https://formspree.io/f/xgaaawgd" method="POST" class="contact-form-box">
                 <div class="form-row">
                     <div class="form-group">
@@ -600,7 +645,8 @@
                 </div>
 
                 <button type="submit" id="form-submit-btn" class="form-submit-btn">
-                    <span data-i18n="formSend">Send Message</span> <i class="fa-solid fa-paper-plane"></i>
+                    <span data-i18n="formSend">Send Message</span>
+                    <i class="fa-solid fa-paper-plane paper-plane-icon" id="paper-plane-icon"></i>
                 </button>
                 <div id="form-status" class="form-status"></div>
             </form>
@@ -626,6 +672,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <p>
             &copy; 2026
