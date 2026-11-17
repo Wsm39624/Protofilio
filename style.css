@@ -1207,3 +1207,16 @@ html[dir="rtl"] .plane-flying {
     .hero-portrait-wrapper { height: 380px; }
     .projects-container, .form-row, .certs-grid, .awards-grid { grid-template-columns: 1fr; }
 }
+
+/* Mobile Responsiveness Improvements for Skills Section & General Scaling */
+@media (max-width: 768px) {
+    .floating-word {
+        display: none !important;
+    }
+    .section {
+        padding: 4rem 5%;
+    }
+    .skills-ticker-wrapper {
+        padding: 1rem 0;
+    }
+}
