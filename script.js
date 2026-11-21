@@ -425,7 +425,27 @@ async function buildCareerRoadmap(studentProfile) {
         }
     }
 
-    // 8. Bidirectional Scroll Observer (Scroll Down & Up)
+    // 8. Scroll Observer + Viewport Fallback (ensures mobile/tablet/desktop elements always reveal)
+    const animatedTargets = document.querySelectorAll(
+        '.reveal-from-bottom, .reveal-from-right, .reveal-from-left, .ticker-track'
+    );
+
+    function revealVisibleElements() {
+        const triggerBottom = window.innerHeight * 0.96;
+        animatedTargets.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            const isInView = rect.top < triggerBottom && rect.bottom > 20;
+            if (isInView) {
+                if (!el.classList.contains('reveal-active')) {
+                    el.classList.add('reveal-active');
+                    if (el.id === 'about-typewriter-box') {
+                        startAboutTypewriter();
+                    }
+                }
+            }
+        });
+    }
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -433,19 +453,14 @@ async function buildCareerRoadmap(studentProfile) {
                 if (entry.target.id === 'about-typewriter-box') {
                     startAboutTypewriter();
                 }
-            } else {
-                entry.target.classList.remove('reveal-active');
-                if (entry.target.id === 'about-typewriter-box') {
-                    resetAboutTypewriter();
-                }
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.02, rootMargin: '0px 0px -20px 0px' });
 
-    const animatedTargets = document.querySelectorAll(
-        '.reveal-from-bottom, .reveal-from-right, .reveal-from-left, .ticker-track'
-    );
     animatedTargets.forEach(el => observer.observe(el));
+    window.addEventListener('scroll', revealVisibleElements, { passive: true });
+    window.addEventListener('resize', revealVisibleElements, { passive: true });
+    setTimeout(revealVisibleElements, 120);
 
     // 9. Contact Form Paper Plane Launch Animation + Formspree Handling
     const contactForm = document.getElementById('contact-form');
@@ -490,13 +505,31 @@ async function buildCareerRoadmap(studentProfile) {
         });
     }
 
-    // 10. Mobile Toggle
+    // 10. Mobile Toggle & Auto-Close on Link Click
     const navToggle = document.getElementById('nav-toggle');
     const navRight = document.getElementById('nav-right');
     if (navToggle && navRight) {
-        navToggle.addEventListener('click', () => {
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             const isOpen = navRight.classList.toggle('open');
             navToggle.classList.toggle('open', isOpen);
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        navRight.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navRight.classList.remove('open');
+                navToggle.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navRight.contains(e.target) && !navToggle.contains(e.target)) {
+                navRight.classList.remove('open');
+                navToggle.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
         });
     }
 
