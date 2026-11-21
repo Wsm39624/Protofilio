@@ -539,13 +539,13 @@ html[dir="rtl"] .hero-content {
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: -10px;
-    left: 15%;
-    width: 70%;
-    height: 3.5px;
+    bottom: -11px;
+    left: 10%;
+    width: 80%;
+    height: 4px;
     border-radius: 999px;
-    background: linear-gradient(90deg, var(--neon-teal), var(--soft-purple) 50%, var(--warm-amber));
-    box-shadow: 0 0 14px rgba(6, 182, 212, 0.55), 0 0 8px rgba(245, 158, 11, 0.35);
+    background: linear-gradient(90deg, #06b6d4 0%, #34d399 48%, #f59e0b 100%);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.75), 0 0 18px rgba(245, 158, 11, 0.45);
 }
 
 /* Directional Spatial Entry Classes */
@@ -1223,30 +1223,28 @@ html[dir="rtl"] .plane-flying {
         display: none;
     }
     .nav-right {
+        display: none;
         position: fixed;
-        top: 62px;
+        top: 60px;
         left: 0;
         right: 0;
-        background: rgba(3, 7, 18, 0.97);
+        width: 100%;
+        background: rgba(3, 7, 18, 0.98);
         backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
         flex-direction: column;
         align-items: center;
         gap: 1.2rem;
         padding: 1.5rem 6% 2rem 6%;
-        border-bottom: 1px solid rgba(6, 182, 212, 0.25);
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-12px);
-        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
         z-index: 999;
-        max-height: calc(100vh - 62px);
+        max-height: calc(100vh - 60px);
         overflow-y: auto;
+        animation: mobileMenuDrop 0.25s ease forwards;
     }
     .nav-right.open {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
+        display: flex !important;
     }
     .nav-links {
         flex-direction: column;
@@ -1293,4 +1291,20 @@ html[dir="rtl"] .plane-flying {
     .contact-form-box {
         padding: 1.5rem;
     }
+}
+
+@keyframes mobileMenuDrop {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Guarantee Technical Skills tracks are never stuck invisible on narrow mobile screens */
+@media (max-width: 768px) {
+    .ticker-track {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+    .track-seq-1 .ticker-content { animation: scrollLeft 35s linear infinite; }
+    .track-seq-2 .ticker-content { animation: scrollRight 35s linear infinite; }
+    .track-seq-3 .ticker-content { animation: scrollLeft 35s linear infinite; }
 }
